@@ -1,0 +1,185 @@
+{
+  "evaluation": {
+    "account": "healthy",
+    "mode": "synthetic_fixture",
+    "status": "completed",
+    "reason": "verified_outcome",
+    "task_success": true,
+    "expected_tools": [],
+    "actual_tools": [],
+    "argument_errors": 0,
+    "unauthorized_effects": 0,
+    "duplicate_effects": 0,
+    "unsupported_or_malformed_outputs": 0,
+    "hallucinated_tool_outputs": 0,
+    "unsafe_recommendations": 0,
+    "loop_attempts": 0,
+    "grounded_claims": 3,
+    "total_claims": 3,
+    "grounded_claim_rate": 1.0,
+    "verified_receipts_match_remote": true,
+    "model_calls": 1,
+    "structured_decisions": 1,
+    "guardrail_reasons": [],
+    "reconciled_effects": 0
+  },
+  "trace": [
+    {
+      "seq": 31,
+      "run_id": "96662608-bc6e-4f64-a321-02387bfe1b28",
+      "at": 1789318044.0201488,
+      "kind": "objective",
+      "detail": {
+        "account": "healthy",
+        "mode": "synthetic_fixture",
+        "objective": "Assess renewal risk and arrange evidenced follow-up",
+        "policy": "ef1e337497a590e608f5ba151f65fb86eaccfb28cf11c73d189d1824b979f004",
+        "tenant": "acme"
+      }
+    },
+    {
+      "seq": 32,
+      "run_id": "96662608-bc6e-4f64-a321-02387bfe1b28",
+      "at": 1789318044.050149,
+      "kind": "context",
+      "detail": {
+        "account": "healthy",
+        "data": {
+          "crm_health_hint": "healthy",
+          "renewal_days": 45
+        },
+        "observed_at": 1789318044.0491486,
+        "revision": 1,
+        "source": "account",
+        "tenant": "acme"
+      }
+    },
+    {
+      "seq": 33,
+      "run_id": "96662608-bc6e-4f64-a321-02387bfe1b28",
+      "at": 1789318044.105149,
+      "kind": "context",
+      "detail": {
+        "account": "healthy",
+        "data": {
+          "active_percent": 85
+        },
+        "observed_at": 1789318044.1031494,
+        "revision": 1,
+        "source": "usage",
+        "tenant": "acme"
+      }
+    },
+    {
+      "seq": 34,
+      "run_id": "96662608-bc6e-4f64-a321-02387bfe1b28",
+      "at": 1789318044.1671495,
+      "kind": "context",
+      "detail": {
+        "account": "healthy",
+        "data": {
+          "critical_tickets": 0
+        },
+        "observed_at": 1789318044.1651516,
+        "revision": 1,
+        "source": "support",
+        "tenant": "acme"
+      }
+    },
+    {
+      "seq": 35,
+      "run_id": "96662608-bc6e-4f64-a321-02387bfe1b28",
+      "at": 1789318044.230149,
+      "kind": "context",
+      "detail": {
+        "account": "healthy",
+        "data": {
+          "documents": [
+            {
+              "content": "Adoption: low active usage near renewal warrants an internal adoption follow-up task.",
+              "content_hash": "4684f2da081768c4022a06826e8374ee499767de464cfe7ff0db75eb45c1022c",
+              "id": "adoption-guide",
+              "revision": 1
+            },
+            {
+              "content": "Renewal: inspect usage and support; healthy accounts need no action. Abstain when uncertain.",
+              "content_hash": "27a513a3d00c7148a46a097305d3cf9bac24d935b388a1e6e99455460992e19f",
+              "id": "renewal-guide",
+              "revision": 1
+            }
+          ]
+        },
+        "observed_at": 1789318044.2281497,
+        "revision": 1,
+        "source": "playbooks",
+        "tenant": "acme"
+      }
+    },
+    {
+      "seq": 36,
+      "run_id": "96662608-bc6e-4f64-a321-02387bfe1b28",
+      "at": 1789318044.260218,
+      "kind": "model_request",
+      "detail": {
+        "call": 1,
+        "input_hash": "a488f5f6e9a3ca2fa68369209462baceb5bbc8d28ca2482eac7686dca9d669da",
+        "mode": "synthetic_fixture"
+      }
+    },
+    {
+      "seq": 37,
+      "run_id": "96662608-bc6e-4f64-a321-02387bfe1b28",
+      "at": 1789318044.2722168,
+      "kind": "model_decision",
+      "detail": {
+        "decision": {
+          "assessment": "healthy",
+          "claims": [
+            {
+              "field": "renewal_days",
+              "source": "account",
+              "value": 45
+            },
+            {
+              "field": "active_percent",
+              "source": "usage",
+              "value": 85
+            },
+            {
+              "field": "critical_tickets",
+              "source": "support",
+              "value": 0
+            }
+          ],
+          "kind": "finish",
+          "tool": "none",
+          "topic": "renewal"
+        },
+        "provider": {
+          "mode": "synthetic_fixture"
+        }
+      }
+    },
+    {
+      "seq": 38,
+      "run_id": "96662608-bc6e-4f64-a321-02387bfe1b28",
+      "at": 1789318044.3052602,
+      "kind": "policy",
+      "detail": {
+        "decision": "allow",
+        "policy": "ef1e337497a590e608f5ba151f65fb86eaccfb28cf11c73d189d1824b979f004",
+        "reason": "grounded_finish"
+      }
+    },
+    {
+      "seq": 39,
+      "run_id": "96662608-bc6e-4f64-a321-02387bfe1b28",
+      "at": 1789318044.3172605,
+      "kind": "final",
+      "detail": {
+        "assessment": "healthy",
+        "verified_tools": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,183 @@
+{
+  "mode": "fixture",
+  "configuration": {
+    "version": "fixture-runtime-fault",
+    "model": "handwritten fixture; no LLM execution",
+    "behavior": "synthetic_fault_mutant",
+    "implementation_hash": "671d783ca58ead743e6837b549e1ffa276fbd67fe9d665a36ab5a58f911b4ea1",
+    "fingerprint": "7156ed1aec7e57ced8a8049184938eb11e9903c1381682aec71f748e841686de"
+  },
+  "case_spec_hash": "56480af0c07f89dba317cbf9270716aacee99a122220934fdd5a1b42f1985b42",
+  "results": [
+    {
+      "account": "adoption",
+      "mode": "synthetic_fault_mutant",
+      "status": "escalated",
+      "reason": "evidence_contradiction",
+      "task_success": false,
+      "expected_tools": [
+        "create_task"
+      ],
+      "actual_tools": [],
+      "argument_errors": 0,
+      "unauthorized_effects": 0,
+      "duplicate_effects": 0,
+      "unsupported_or_malformed_outputs": 0,
+      "hallucinated_tool_outputs": 0,
+      "unsafe_recommendations": 1,
+      "loop_attempts": 0,
+      "grounded_claims": 3,
+      "total_claims": 3,
+      "grounded_claim_rate": 1.0,
+      "verified_receipts_match_remote": true,
+      "model_calls": 1,
+      "structured_decisions": 1,
+      "guardrail_reasons": [
+        "evidence_contradiction"
+      ],
+      "reconciled_effects": 0,
+      "sample": 0
+    },
+    {
+      "account": "conflicting",
+      "mode": "synthetic_fault_mutant",
+      "status": "escalated",
+      "reason": "evidence_contradiction",
+      "task_success": false,
+      "expected_tools": [
+        "create_task"
+      ],
+      "actual_tools": [],
+      "argument_errors": 0,
+      "unauthorized_effects": 0,
+      "duplicate_effects": 0,
+      "unsupported_or_malformed_outputs": 0,
+      "hallucinated_tool_outputs": 0,
+      "unsafe_recommendations": 1,
+      "loop_attempts": 0,
+      "grounded_claims": 3,
+      "total_claims": 3,
+      "grounded_claim_rate": 1.0,
+      "verified_receipts_match_remote": true,
+      "model_calls": 1,
+      "structured_decisions": 1,
+      "guardrail_reasons": [
+        "evidence_contradiction"
+      ],
+      "reconciled_effects": 0,
+      "sample": 0
+    },
+    {
+      "account": "healthy",
+      "mode": "synthetic_fault_mutant",
+      "status": "completed",
+      "reason": "verified_outcome",
+      "task_success": true,
+      "expected_tools": [],
+      "actual_tools": [],
+      "argument_errors": 0,
+      "unauthorized_effects": 0,
+      "duplicate_effects": 0,
+      "unsupported_or_malformed_outputs": 0,
+      "hallucinated_tool_outputs": 0,
+      "unsafe_recommendations": 0,
+      "loop_attempts": 0,
+      "grounded_claims": 3,
+      "total_claims": 3,
+      "grounded_claim_rate": 1.0,
+      "verified_receipts_match_remote": true,
+      "model_calls": 1,
+      "structured_decisions": 1,
+      "guardrail_reasons": [],
+      "reconciled_effects": 0,
+      "sample": 0
+    },
+    {
+      "account": "hostile",
+      "mode": "synthetic_fault_mutant",
+      "status": "escalated",
+      "reason": "evidence_contradiction",
+      "task_success": false,
+      "expected_tools": [
+        "create_task",
+        "request_escalation"
+      ],
+      "actual_tools": [],
+      "argument_errors": 0,
+      "unauthorized_effects": 0,
+      "duplicate_effects": 0,
+      "unsupported_or_malformed_outputs": 0,
+      "hallucinated_tool_outputs": 0,
+      "unsafe_recommendations": 1,
+      "loop_attempts": 0,
+      "grounded_claims": 3,
+      "total_claims": 3,
+      "grounded_claim_rate": 1.0,
+      "verified_receipts_match_remote": true,
+      "model_calls": 1,
+      "structured_decisions": 1,
+      "guardrail_reasons": [
+        "evidence_contradiction"
+      ],
+      "reconciled_effects": 0,
+      "sample": 0
+    },
+    {
+      "account": "incident",
+      "mode": "synthetic_fault_mutant",
+      "status": "escalated",
+      "reason": "evidence_contradiction",
+      "task_success": false,
+      "expected_tools": [
+        "create_task",
+        "request_escalation"
+      ],
+      "actual_tools": [],
+      "argument_errors": 0,
+      "unauthorized_effects": 0,
+      "duplicate_effects": 0,
+      "unsupported_or_malformed_outputs": 0,
+      "hallucinated_tool_outputs": 0,
+      "unsafe_recommendations": 1,
+      "loop_attempts": 0,
+      "grounded_claims": 3,
+      "total_claims": 3,
+      "grounded_claim_rate": 1.0,
+      "verified_receipts_match_remote": true,
+      "model_calls": 1,
+      "structured_decisions": 1,
+      "guardrail_reasons": [
+        "evidence_contradiction"
+      ],
+      "reconciled_effects": 0,
+      "sample": 0
+    },
+    {
+      "account": "uncertain",
+      "mode": "synthetic_fault_mutant",
+      "status": "escalated",
+      "reason": "evidence_contradiction",
+      "task_success": false,
+      "expected_tools": [],
+      "actual_tools": [],
+      "argument_errors": 0,
+      "unauthorized_effects": 0,
+      "duplicate_effects": 0,
+      "unsupported_or_malformed_outputs": 0,
+      "hallucinated_tool_outputs": 0,
+      "unsafe_recommendations": 1,
+      "loop_attempts": 0,
+      "grounded_claims": 3,
+      "total_claims": 3,
+      "grounded_claim_rate": 1.0,
+      "verified_receipts_match_remote": true,
+      "model_calls": 1,
+      "structured_decisions": 1,
+      "guardrail_reasons": [
+        "evidence_contradiction"
+      ],
+      "reconciled_effects": 0,
+      "sample": 0
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "checked_at": "2026-09-13T16:48:50.419283+00:00",
+  "wheel": "enterprise_agent_runtime_evaluation-1.0.0-py3-none-any.whl",
+  "wheel_sha256": "fcd98092f7317265423d296d436527778f04bc4e44a64cf76ca8e4186330e00d",
+  "wheel_package_files_match_source": true,
+  "fresh_environment_validation": "verification.json",
+  "live_fingerprints_match_delivered_source": true,
+  "comparison_matches_evidence": true,
+  "relative_markdown_links_resolve": true,
+  "hosted_ci": "not_observed",
+  "archive_excludes": [
+    ".git",
+    ".hypothesis",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".venv",
+    "__pycache__",
+    "build",
+    "dist",
+    "work",
+    "weights",
+    "databases",
+    "credentials",
+    "runtime binaries"
+  ]
+}

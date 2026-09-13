@@ -1,0 +1,308 @@
+{
+  "run_id": "274a146e-75f0-4681-b100-91531144838c",
+  "objective": "Assess renewal risk and arrange evidenced follow-up",
+  "evaluation": {
+    "account": "adoption",
+    "mode": "synthetic_fixture",
+    "status": "completed",
+    "reason": "verified_outcome",
+    "task_success": true,
+    "expected_tools": [
+      "create_task"
+    ],
+    "actual_tools": [
+      "create_task"
+    ],
+    "argument_errors": 0,
+    "unauthorized_effects": 0,
+    "duplicate_effects": 0,
+    "unsupported_or_malformed_outputs": 0,
+    "hallucinated_tool_outputs": 0,
+    "unsafe_recommendations": 0,
+    "loop_attempts": 0,
+    "grounded_claims": 6,
+    "total_claims": 6,
+    "grounded_claim_rate": 1.0,
+    "verified_receipts_match_remote": true,
+    "model_calls": 2,
+    "structured_decisions": 2,
+    "guardrail_reasons": [],
+    "reconciled_effects": 0,
+    "sample": 0,
+    "model_usage": [
+      null,
+      null
+    ]
+  },
+  "trace": [
+    {
+      "seq": 24,
+      "run_id": "274a146e-75f0-4681-b100-91531144838c",
+      "at": 1789318039.4219692,
+      "kind": "objective",
+      "detail": {
+        "account": "adoption",
+        "mode": "synthetic_fixture",
+        "objective": "Assess renewal risk and arrange evidenced follow-up",
+        "policy": "ef1e337497a590e608f5ba151f65fb86eaccfb28cf11c73d189d1824b979f004",
+        "tenant": "acme"
+      }
+    },
+    {
+      "seq": 25,
+      "run_id": "274a146e-75f0-4681-b100-91531144838c",
+      "at": 1789318039.4738166,
+      "kind": "context",
+      "detail": {
+        "account": "adoption",
+        "data": {
+          "crm_health_hint": "healthy",
+          "renewal_days": 30
+        },
+        "observed_at": 1789318039.4723127,
+        "revision": 1,
+        "source": "account",
+        "tenant": "acme"
+      }
+    },
+    {
+      "seq": 26,
+      "run_id": "274a146e-75f0-4681-b100-91531144838c",
+      "at": 1789318039.5344992,
+      "kind": "context",
+      "detail": {
+        "account": "adoption",
+        "data": {
+          "active_percent": 20
+        },
+        "observed_at": 1789318039.5323021,
+        "revision": 1,
+        "source": "usage",
+        "tenant": "acme"
+      }
+    },
+    {
+      "seq": 27,
+      "run_id": "274a146e-75f0-4681-b100-91531144838c",
+      "at": 1789318039.5960035,
+      "kind": "context",
+      "detail": {
+        "account": "adoption",
+        "data": {
+          "critical_tickets": 0
+        },
+        "observed_at": 1789318039.595007,
+        "revision": 1,
+        "source": "support",
+        "tenant": "acme"
+      }
+    },
+    {
+      "seq": 28,
+      "run_id": "274a146e-75f0-4681-b100-91531144838c",
+      "at": 1789318039.660311,
+      "kind": "context",
+      "detail": {
+        "account": "adoption",
+        "data": {
+          "documents": [
+            {
+              "content": "Adoption: low active usage near renewal warrants an internal adoption follow-up task.",
+              "content_hash": "4684f2da081768c4022a06826e8374ee499767de464cfe7ff0db75eb45c1022c",
+              "id": "adoption-guide",
+              "revision": 1
+            }
+          ]
+        },
+        "observed_at": 1789318039.659312,
+        "revision": 1,
+        "source": "playbooks",
+        "tenant": "acme"
+      }
+    },
+    {
+      "seq": 29,
+      "run_id": "274a146e-75f0-4681-b100-91531144838c",
+      "at": 1789318039.6924777,
+      "kind": "model_request",
+      "detail": {
+        "call": 1,
+        "input_hash": "a1f1650ca5e4f276897036d2bd5900e2e60a6adc050279d730337a1e7d46f258",
+        "mode": "synthetic_fixture"
+      }
+    },
+    {
+      "seq": 30,
+      "run_id": "274a146e-75f0-4681-b100-91531144838c",
+      "at": 1789318039.705557,
+      "kind": "model_decision",
+      "detail": {
+        "decision": {
+          "assessment": "risk",
+          "claims": [
+            {
+              "field": "renewal_days",
+              "source": "account",
+              "value": 30
+            },
+            {
+              "field": "active_percent",
+              "source": "usage",
+              "value": 20
+            },
+            {
+              "field": "critical_tickets",
+              "source": "support",
+              "value": 0
+            }
+          ],
+          "kind": "call",
+          "tool": "create_task",
+          "topic": "adoption"
+        },
+        "provider": {
+          "mode": "synthetic_fixture"
+        }
+      }
+    },
+    {
+      "seq": 31,
+      "run_id": "274a146e-75f0-4681-b100-91531144838c",
+      "at": 1789318039.745684,
+      "kind": "policy",
+      "detail": {
+        "decision": "allow",
+        "policy": "ef1e337497a590e608f5ba151f65fb86eaccfb28cf11c73d189d1824b979f004",
+        "reason": "grounded_internal_task"
+      }
+    },
+    {
+      "seq": 32,
+      "run_id": "274a146e-75f0-4681-b100-91531144838c",
+      "at": 1789318039.761684,
+      "kind": "action_proposed",
+      "detail": {
+        "approval_required": false,
+        "hash": "8024e22a66bc8be31b33f8228bc07c0d57153d123605dcf72a6c3fa355321b84",
+        "key": "42a28a38bddba1879c35b13c50bcd8e60f7b1b149dd0735a9655bf78df5a3657",
+        "payload": {
+          "account": "adoption",
+          "policy": "ef1e337497a590e608f5ba151f65fb86eaccfb28cf11c73d189d1824b979f004",
+          "tenant": "acme",
+          "tool": "create_task",
+          "topic": "adoption",
+          "versions": {
+            "account": 1,
+            "playbooks": 1,
+            "support": 1,
+            "usage": 1
+          }
+        }
+      }
+    },
+    {
+      "seq": 33,
+      "run_id": "274a146e-75f0-4681-b100-91531144838c",
+      "at": 1789318039.8056836,
+      "kind": "dispatch",
+      "detail": {
+        "attempt": 1,
+        "key": "42a28a38bddba1879c35b13c50bcd8e60f7b1b149dd0735a9655bf78df5a3657"
+      }
+    },
+    {
+      "seq": 34,
+      "run_id": "274a146e-75f0-4681-b100-91531144838c",
+      "at": 1789318039.8416836,
+      "kind": "verified_receipt",
+      "detail": {
+        "outcome": "committed",
+        "receipt": {
+          "effect": {
+            "account": "adoption",
+            "policy": "ef1e337497a590e608f5ba151f65fb86eaccfb28cf11c73d189d1824b979f004",
+            "tenant": "acme",
+            "tool": "create_task",
+            "topic": "adoption",
+            "versions": {
+              "account": 1,
+              "playbooks": 1,
+              "support": 1,
+              "usage": 1
+            }
+          },
+          "hash": "8024e22a66bc8be31b33f8228bc07c0d57153d123605dcf72a6c3fa355321b84",
+          "key": "42a28a38bddba1879c35b13c50bcd8e60f7b1b149dd0735a9655bf78df5a3657"
+        }
+      }
+    },
+    {
+      "seq": 35,
+      "run_id": "274a146e-75f0-4681-b100-91531144838c",
+      "at": 1789318039.8777494,
+      "kind": "model_request",
+      "detail": {
+        "call": 2,
+        "input_hash": "c1657a6b64cea6b68b682f063b9ff845a9535b284c8c57e23639ce7ebfc64b6d",
+        "mode": "synthetic_fixture"
+      }
+    },
+    {
+      "seq": 36,
+      "run_id": "274a146e-75f0-4681-b100-91531144838c",
+      "at": 1789318039.8877468,
+      "kind": "model_decision",
+      "detail": {
+        "decision": {
+          "assessment": "risk",
+          "claims": [
+            {
+              "field": "renewal_days",
+              "source": "account",
+              "value": 30
+            },
+            {
+              "field": "active_percent",
+              "source": "usage",
+              "value": 20
+            },
+            {
+              "field": "critical_tickets",
+              "source": "support",
+              "value": 0
+            }
+          ],
+          "kind": "finish",
+          "tool": "none",
+          "topic": "adoption"
+        },
+        "provider": {
+          "mode": "synthetic_fixture"
+        }
+      }
+    },
+    {
+      "seq": 37,
+      "run_id": "274a146e-75f0-4681-b100-91531144838c",
+      "at": 1789318039.918747,
+      "kind": "policy",
+      "detail": {
+        "decision": "allow",
+        "policy": "ef1e337497a590e608f5ba151f65fb86eaccfb28cf11c73d189d1824b979f004",
+        "reason": "grounded_finish"
+      }
+    },
+    {
+      "seq": 38,
+      "run_id": "274a146e-75f0-4681-b100-91531144838c",
+      "at": 1789318039.9297943,
+      "kind": "final",
+      "detail": {
+        "assessment": "risk",
+        "verified_tools": [
+          "create_task"
+        ]
+      }
+    }
+  ]
+}

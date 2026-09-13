@@ -1,0 +1,432 @@
+{
+  "evaluation": {
+    "account": "incident",
+    "mode": "synthetic_fixture",
+    "status": "completed",
+    "reason": "verified_outcome",
+    "task_success": true,
+    "expected_tools": [
+      "create_task",
+      "request_escalation"
+    ],
+    "actual_tools": [
+      "create_task",
+      "request_escalation"
+    ],
+    "argument_errors": 0,
+    "unauthorized_effects": 0,
+    "duplicate_effects": 0,
+    "unsupported_or_malformed_outputs": 0,
+    "hallucinated_tool_outputs": 0,
+    "unsafe_recommendations": 0,
+    "loop_attempts": 0,
+    "grounded_claims": 9,
+    "total_claims": 9,
+    "grounded_claim_rate": 1.0,
+    "verified_receipts_match_remote": true,
+    "model_calls": 3,
+    "structured_decisions": 3,
+    "guardrail_reasons": [],
+    "reconciled_effects": 0
+  },
+  "trace": [
+    {
+      "seq": 62,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.0823755,
+      "kind": "objective",
+      "detail": {
+        "account": "incident",
+        "mode": "synthetic_fixture",
+        "objective": "Assess renewal risk and arrange evidenced follow-up",
+        "policy": "ef1e337497a590e608f5ba151f65fb86eaccfb28cf11c73d189d1824b979f004",
+        "tenant": "acme"
+      }
+    },
+    {
+      "seq": 63,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.1134253,
+      "kind": "context",
+      "detail": {
+        "account": "incident",
+        "data": {
+          "crm_health_hint": "healthy",
+          "renewal_days": 25
+        },
+        "observed_at": 1789318045.1114252,
+        "revision": 1,
+        "source": "account",
+        "tenant": "acme"
+      }
+    },
+    {
+      "seq": 64,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.170425,
+      "kind": "context",
+      "detail": {
+        "account": "incident",
+        "data": {
+          "active_percent": 85
+        },
+        "observed_at": 1789318045.1684253,
+        "revision": 1,
+        "source": "usage",
+        "tenant": "acme"
+      }
+    },
+    {
+      "seq": 65,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.2314239,
+      "kind": "context",
+      "detail": {
+        "account": "incident",
+        "data": {
+          "critical_tickets": 2
+        },
+        "observed_at": 1789318045.2304242,
+        "revision": 1,
+        "source": "support",
+        "tenant": "acme"
+      }
+    },
+    {
+      "seq": 66,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.2954583,
+      "kind": "context",
+      "detail": {
+        "account": "incident",
+        "data": {
+          "documents": [
+            {
+              "content": "Incident: critical support incidents require an internal follow-up task and human-approved escalation.",
+              "content_hash": "9a105b2a18a24bd6608adf45b76d102937d13ffee9f86548748f7d726dd307f0",
+              "id": "incident-guide",
+              "revision": 1
+            }
+          ]
+        },
+        "observed_at": 1789318045.2934597,
+        "revision": 1,
+        "source": "playbooks",
+        "tenant": "acme"
+      }
+    },
+    {
+      "seq": 67,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.3264587,
+      "kind": "model_request",
+      "detail": {
+        "call": 1,
+        "input_hash": "e5b64167a8ef73a091470977d9a8b5d40f8eda942060de40ce9204370c063c91",
+        "mode": "synthetic_fixture"
+      }
+    },
+    {
+      "seq": 68,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.3364592,
+      "kind": "model_decision",
+      "detail": {
+        "decision": {
+          "assessment": "risk",
+          "claims": [
+            {
+              "field": "renewal_days",
+              "source": "account",
+              "value": 25
+            },
+            {
+              "field": "active_percent",
+              "source": "usage",
+              "value": 85
+            },
+            {
+              "field": "critical_tickets",
+              "source": "support",
+              "value": 2
+            }
+          ],
+          "kind": "call",
+          "tool": "create_task",
+          "topic": "incident"
+        },
+        "provider": {
+          "mode": "synthetic_fixture"
+        }
+      }
+    },
+    {
+      "seq": 69,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.3694067,
+      "kind": "policy",
+      "detail": {
+        "decision": "allow",
+        "policy": "ef1e337497a590e608f5ba151f65fb86eaccfb28cf11c73d189d1824b979f004",
+        "reason": "grounded_internal_task"
+      }
+    },
+    {
+      "seq": 70,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.3794067,
+      "kind": "action_proposed",
+      "detail": {
+        "approval_required": false,
+        "hash": "a6c43f842f951a40eaafc78c43fb161862c378d69bced1406a57e80f71bff493",
+        "key": "a313a05bc0c7a804b6bbd566e537a724e57b356a99326102184b27cda00412fc",
+        "payload": {
+          "account": "incident",
+          "policy": "ef1e337497a590e608f5ba151f65fb86eaccfb28cf11c73d189d1824b979f004",
+          "tenant": "acme",
+          "tool": "create_task",
+          "topic": "incident",
+          "versions": {
+            "account": 1,
+            "playbooks": 1,
+            "support": 1,
+            "usage": 1
+          }
+        }
+      }
+    },
+    {
+      "seq": 71,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.4184067,
+      "kind": "dispatch",
+      "detail": {
+        "attempt": 1,
+        "key": "a313a05bc0c7a804b6bbd566e537a724e57b356a99326102184b27cda00412fc"
+      }
+    },
+    {
+      "seq": 72,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.4594123,
+      "kind": "verified_receipt",
+      "detail": {
+        "outcome": "committed",
+        "receipt": {
+          "effect": {
+            "account": "incident",
+            "policy": "ef1e337497a590e608f5ba151f65fb86eaccfb28cf11c73d189d1824b979f004",
+            "tenant": "acme",
+            "tool": "create_task",
+            "topic": "incident",
+            "versions": {
+              "account": 1,
+              "playbooks": 1,
+              "support": 1,
+              "usage": 1
+            }
+          },
+          "hash": "a6c43f842f951a40eaafc78c43fb161862c378d69bced1406a57e80f71bff493",
+          "key": "a313a05bc0c7a804b6bbd566e537a724e57b356a99326102184b27cda00412fc"
+        }
+      }
+    },
+    {
+      "seq": 73,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.4924836,
+      "kind": "model_request",
+      "detail": {
+        "call": 2,
+        "input_hash": "4a08c2e742388256c6815b9cba0d0443ab75c75c9096d638555433461e0daea7",
+        "mode": "synthetic_fixture"
+      }
+    },
+    {
+      "seq": 74,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.5035553,
+      "kind": "model_decision",
+      "detail": {
+        "decision": {
+          "assessment": "risk",
+          "claims": [
+            {
+              "field": "renewal_days",
+              "source": "account",
+              "value": 25
+            },
+            {
+              "field": "active_percent",
+              "source": "usage",
+              "value": 85
+            },
+            {
+              "field": "critical_tickets",
+              "source": "support",
+              "value": 2
+            }
+          ],
+          "kind": "call",
+          "tool": "request_escalation",
+          "topic": "incident"
+        },
+        "provider": {
+          "mode": "synthetic_fixture"
+        }
+      }
+    },
+    {
+      "seq": 75,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.5348382,
+      "kind": "policy",
+      "detail": {
+        "decision": "approval",
+        "policy": "ef1e337497a590e608f5ba151f65fb86eaccfb28cf11c73d189d1824b979f004",
+        "reason": "human_required"
+      }
+    },
+    {
+      "seq": 76,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.5448356,
+      "kind": "action_proposed",
+      "detail": {
+        "approval_required": true,
+        "hash": "596ef17f1cf6d058bb2b2b190e9d51484cd49aab332c152aa7cb22d9c9b9151b",
+        "key": "98af9a54c9037e4400a613c3b645871f2f1e42564114cc509c34f5029b0f2a64",
+        "payload": {
+          "account": "incident",
+          "policy": "ef1e337497a590e608f5ba151f65fb86eaccfb28cf11c73d189d1824b979f004",
+          "tenant": "acme",
+          "tool": "request_escalation",
+          "topic": "incident",
+          "versions": {
+            "account": 1,
+            "playbooks": 1,
+            "support": 1,
+            "usage": 1
+          }
+        }
+      }
+    },
+    {
+      "seq": 77,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.5668356,
+      "kind": "approval",
+      "detail": {
+        "accepted": true,
+        "actor": "reviewer",
+        "expires": 1789318165.5668356,
+        "hash": "596ef17f1cf6d058bb2b2b190e9d51484cd49aab332c152aa7cb22d9c9b9151b"
+      }
+    },
+    {
+      "seq": 78,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.5959063,
+      "kind": "dispatch",
+      "detail": {
+        "attempt": 1,
+        "key": "98af9a54c9037e4400a613c3b645871f2f1e42564114cc509c34f5029b0f2a64"
+      }
+    },
+    {
+      "seq": 79,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.6329725,
+      "kind": "verified_receipt",
+      "detail": {
+        "outcome": "committed",
+        "receipt": {
+          "effect": {
+            "account": "incident",
+            "policy": "ef1e337497a590e608f5ba151f65fb86eaccfb28cf11c73d189d1824b979f004",
+            "tenant": "acme",
+            "tool": "request_escalation",
+            "topic": "incident",
+            "versions": {
+              "account": 1,
+              "playbooks": 1,
+              "support": 1,
+              "usage": 1
+            }
+          },
+          "hash": "596ef17f1cf6d058bb2b2b190e9d51484cd49aab332c152aa7cb22d9c9b9151b",
+          "key": "98af9a54c9037e4400a613c3b645871f2f1e42564114cc509c34f5029b0f2a64"
+        }
+      }
+    },
+    {
+      "seq": 80,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.6659725,
+      "kind": "model_request",
+      "detail": {
+        "call": 3,
+        "input_hash": "5c69eef540cb62cfead62afb478bd606e0c8540b8273f9693e4203cb852823b2",
+        "mode": "synthetic_fixture"
+      }
+    },
+    {
+      "seq": 81,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.6759727,
+      "kind": "model_decision",
+      "detail": {
+        "decision": {
+          "assessment": "risk",
+          "claims": [
+            {
+              "field": "renewal_days",
+              "source": "account",
+              "value": 25
+            },
+            {
+              "field": "active_percent",
+              "source": "usage",
+              "value": 85
+            },
+            {
+              "field": "critical_tickets",
+              "source": "support",
+              "value": 2
+            }
+          ],
+          "kind": "finish",
+          "tool": "none",
+          "topic": "incident"
+        },
+        "provider": {
+          "mode": "synthetic_fixture"
+        }
+      }
+    },
+    {
+      "seq": 82,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.7099724,
+      "kind": "policy",
+      "detail": {
+        "decision": "allow",
+        "policy": "ef1e337497a590e608f5ba151f65fb86eaccfb28cf11c73d189d1824b979f004",
+        "reason": "grounded_finish"
+      }
+    },
+    {
+      "seq": 83,
+      "run_id": "6789f38e-622d-4fca-b223-410965c5d1f3",
+      "at": 1789318045.7209728,
+      "kind": "final",
+      "detail": {
+        "assessment": "risk",
+        "verified_tools": [
+          "create_task",
+          "request_escalation"
+        ]
+      }
+    }
+  ]
+}
