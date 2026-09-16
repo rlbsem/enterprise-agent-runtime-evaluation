@@ -24,6 +24,18 @@ flowchart LR
   S --> K[Canary: limited recommendation-only routing]
   K --> P[Local active version]
   P --> B[Observable rollback of future routing]
+
+  classDef input fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
+  classDef foundation fill:#bfdbfe,stroke:#1d4ed8,color:#0f172a,stroke-width:2px;
+  classDef process fill:#93c5fd,stroke:#1e40af,color:#0f172a,stroke-width:2px;
+  classDef control fill:#60a5fa,stroke:#1e3a8a,color:#ffffff,stroke-width:2px;
+  classDef output fill:#2563eb,stroke:#1e3a8a,color:#ffffff,stroke-width:2px;
+
+  class V,C,M input;
+  class R foundation;
+  class T,O,Q process;
+  class E,G,S,K control;
+  class P,B output;
 ```
 
 ## What the agent does
