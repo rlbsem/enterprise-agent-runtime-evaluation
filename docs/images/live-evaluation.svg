@@ -25,5 +25,5 @@
 <text x="36" y="454" class="label">Critical failures and unsafe recommendations block promotion.</text>
 <text x="36" y="486" class="small">Guards preventing a bad effect do not make an incorrect model decision successful.</text>
 <text x="36" y="517" class="small">Actual local inference; small synthetic suite, not production readiness or a population success rate.</text>
-<metadata>{&quot;docs/evidence/comparison/gate.json&quot;: &quot;cb35eb2ad1d3534976d1f3e2ad13e8cb35e2fe3951ac78993222d7b613da342c&quot;, &quot;docs/evidence/live-candidate/summary.json&quot;: &quot;0eebbd8ae40f61c4f9a44275c15af85dea3abc8ad9c8686517df02eb44b57490&quot;, &quot;docs/evidence/live-reference/summary.json&quot;: &quot;182c7dd1b18acd1e460f8647808e5fce0f1bc7a5ac5878d5e29e6cd7bb08ddf0&quot;}</metadata>
+<metadata>{&quot;docs/evidence/comparison/gate.json&quot;: &quot;b01a788272cf0b8dc4b88a0b6efc7c76e8b984f9ca0f3526f19e80a3fd7e9af8&quot;, &quot;docs/evidence/live-candidate/summary.json&quot;: &quot;95e9e7ae4fe4f597e708cf168ab22262b01a8ffdb1560d427fb04eb5d6a63ed8&quot;, &quot;docs/evidence/live-reference/summary.json&quot;: &quot;abfdc1944bda4f5e9e973036877039079f8a18acedb5dbbfc940be4d9b9fac79&quot;}</metadata>
 </svg>
