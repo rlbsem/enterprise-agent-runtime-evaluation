@@ -4,8 +4,6 @@
 
 This project evaluates a synthetic account-risk agent across prompt versions, checks evidence and tool behavior, blocks regressions, and exercises a local release lifecycle. Its center is **agent behavior and release decisions**. Customer-state authority remains a separate engineering boundary.
 
-**Independent synthetic evaluation:** local model inference is real; the customer systems, cases and business effects are fictional.
-
 ![Executed local-model evaluation: task success, unsafe recommendations and blocked release decisions](docs/images/live-evaluation.svg)
 
 *Generated from actual local inference, two seeds per scenario. Unsafe recommendations remain defects even when guards prevent effects. This small suite is not a population quality estimate; neither live configuration is promoted. [Comparison and blocking reasons](docs/evidence/comparison/report.md).*
@@ -85,8 +83,8 @@ An intentionally poisoned playbook requests credential export, approval bypass a
 
 ## Execution and claim boundary
 
-Native Windows execution includes real local-model inference, real SQLite/FTS5, separate HTTP processes, deterministic tests and local release routing. The [verification record](docs/evidence/verification.json) and [individual tests](docs/evidence/tests.xml) retain exact results. [Hosted runtime and release-regression CI passed on Windows and Ubuntu](https://github.com/rlbsem/enterprise-agent-runtime-evaluation/actions/runs/35055431823). That workflow executes fixtures; actual local-model inference is evidenced separately. No cloud deployment, customer production use, security certification or vendor integration is claimed.
+Native Windows execution includes real local-model inference, real SQLite/FTS5, separate HTTP processes, deterministic tests and local release routing. The [verification record](docs/evidence/verification.json) and [individual tests](docs/evidence/tests.xml) retain exact results. [Hosted runtime and release-regression CI passed on Windows and Ubuntu](https://github.com/rlbsem/enterprise-agent-runtime-evaluation/actions/runs/35055431823). That workflow executes fixtures; actual local-model inference is evidenced separately. Cloud deployment and live vendor integration are outside this local validation.
 
 The release gate is a conservative check on a small synthetic suite, not proof of general prompt-injection resistance or population-level model quality. The intentionally flawed candidate is a regression mutation, not an impartial provider benchmark. [Known limits and validation](docs/validation.md) explain the development-case tuning, small sample size and trusted local operator boundary.
 
-Read [architecture](docs/architecture.md), [evaluation](docs/evaluation.md), [operations](docs/operations.md) and [validation](docs/validation.md) for the technical handoff. This independent synthetic portfolio project is not affiliated with an AI or enterprise-platform vendor.
+Read [architecture](docs/architecture.md), [evaluation](docs/evaluation.md), [operations](docs/operations.md) and [validation](docs/validation.md) for the technical handoff.
