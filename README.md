@@ -15,6 +15,7 @@ The live experiment runs **Qwen2.5-1.5B-Instruct locally through llama.cpp**, wi
 The separate deterministic suite proves the release machinery: a faulty candidate is blocked; an equivalent candidate passes offline, shadow and limited canary checks, is activated locally, and is rolled back after an injected runtime regression. **That successful lifecycle uses handwritten fixtures, not claimed live-model promotion.**
 
 ```mermaid
+%%{init: {"theme":"base","themeVariables":{"background":"#10101D","primaryColor":"#2A2A3D","primaryTextColor":"#F0F0FF","primaryBorderColor":"#7C7CAF","lineColor":"#B8B8FF","textColor":"#F0F0FF","secondaryColor":"#181825","tertiaryColor":"#2E2E45","fontFamily":"IBM Plex Sans, Arial, sans-serif","fontSize":"15px","edgeLabelBackground":"#10101D"}}}%%
 flowchart LR
   V[Versioned prompt, model, tools, retrieval and code] --> R[Bounded agent runtime]
   C[Synthetic CRM / usage / support + scoped playbooks] --> R
@@ -29,11 +30,11 @@ flowchart LR
   K --> P[Local active version]
   P --> B[Observable rollback of future routing]
 
-  classDef input fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:2px;
-  classDef foundation fill:#bfdbfe,stroke:#1d4ed8,color:#0f172a,stroke-width:2px;
-  classDef process fill:#93c5fd,stroke:#1e40af,color:#0f172a,stroke-width:2px;
-  classDef control fill:#60a5fa,stroke:#1e3a8a,color:#ffffff,stroke-width:2px;
-  classDef output fill:#2563eb,stroke:#1e3a8a,color:#ffffff,stroke-width:2px;
+  classDef input fill:#181825,stroke:#7C7CAF,color:#F0F0FF,stroke-width:2px;
+  classDef foundation fill:#2A2A3D,stroke:#B8B8FF,color:#F0F0FF,stroke-width:2px;
+  classDef process fill:#2A2A3D,stroke:#7C7CAF,color:#F0F0FF,stroke-width:2px;
+  classDef control fill:#2E2E45,stroke:#E3BC7F,color:#F0F0FF,stroke-width:2px;
+  classDef output fill:#2E2E45,stroke:#81C5B0,color:#F0F0FF,stroke-width:2px;
 
   class V,C,M input;
   class R foundation;
