@@ -16,7 +16,7 @@ The separate deterministic suite proves the release machinery: a faulty candidat
 
 ```mermaid
 %%{init: {"theme":"base","themeVariables":{"background":"#10101D","primaryColor":"#2A2A3D","primaryTextColor":"#F0F0FF","primaryBorderColor":"#7C7CAF","lineColor":"#B8B8FF","textColor":"#F0F0FF","secondaryColor":"#181825","tertiaryColor":"#2E2E45","fontFamily":"IBM Plex Sans, Arial, sans-serif","fontSize":"15px","edgeLabelBackground":"#10101D"}}}%%
-flowchart LR
+flowchart TB
   V[Versioned prompt, model, tools, retrieval and code] --> R[Bounded agent runtime]
   C[Synthetic CRM / usage / support + scoped playbooks] --> R
   M[Local LLM or explicit fixture responder] --> R
