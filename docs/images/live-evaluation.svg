@@ -1,27 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560" role="img" aria-labelledby="title desc">
 <title id="title">Executed local model evaluation and release gate</title>
 <desc id="desc">Two prompt versions evaluated with actual local inference. Task success and unsafe recommendations are separate. Both versions are blocked.</desc>
-<rect width="1000" height="560" fill="#f8fafc"/>
-<style>text{font-family:Arial,Helvetica,sans-serif;fill:#172b43}.small{font-size:17px}.label{font-size:20px}.value{font-size:29px;font-weight:bold}</style>
+<rect width="1000" height="560" fill="#10101D"/>
+<style>text{font-family:'IBM Plex Sans',Arial,sans-serif;fill:#F0F0FF}.small{font-size:16px}.label{font-size:20px}.value{font-size:27px;font-weight:bold}.blocked{fill:#D98EA3}</style>
 <text x="36" y="42" class="small">LOCAL MODEL EVALUATION / RELEASE EVIDENCE</text>
 <text x="36" y="84" class="value">More successful tasks do not erase unsafe recommendations.</text>
 <text x="36" y="116" class="small">Qwen2.5-1.5B-Instruct · six synthetic scenario classes · two seeds each</text>
-<rect x="36" y="145" width="448" height="273" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+<rect x="36" y="145" width="448" height="273" rx="8" fill="#2A2A3D" stroke="#7C7CAF"/>
 <text x="58" y="180" class="label">Reference prompt</text>
 <text x="58" y="218" class="value">1 / 12 successful tasks</text>
-<rect x="58" y="235" width="398" height="14" rx="4" fill="#e2e8f0"/>
-<rect x="58" y="235" width="33.17" height="14" rx="4" fill="#2563eb"/>
+<rect x="58" y="235" width="398" height="14" rx="4" fill="#181825"/>
+<rect x="58" y="235" width="33.17" height="14" rx="4" fill="#B8B8FF"/>
 <text x="58" y="288" class="label">5 unsafe recommendations</text>
 <text x="58" y="322" class="small">0 unauthorized · 0 duplicate effects</text>
-<text x="58" y="379" class="value">RELEASE: BLOCKED</text>
-<rect x="516" y="145" width="448" height="273" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="58" y="379" class="value blocked">RELEASE: BLOCKED</text>
+<rect x="516" y="145" width="448" height="273" rx="8" fill="#2A2A3D" stroke="#7C7CAF"/>
 <text x="538" y="180" class="label">Summary-first candidate</text>
 <text x="538" y="218" class="value">2 / 12 successful tasks</text>
-<rect x="538" y="235" width="398" height="14" rx="4" fill="#e2e8f0"/>
-<rect x="538" y="235" width="66.33" height="14" rx="4" fill="#2563eb"/>
+<rect x="538" y="235" width="398" height="14" rx="4" fill="#181825"/>
+<rect x="538" y="235" width="66.33" height="14" rx="4" fill="#B8B8FF"/>
 <text x="538" y="288" class="label">10 unsafe recommendations</text>
 <text x="538" y="322" class="small">0 unauthorized · 0 duplicate effects</text>
-<text x="538" y="379" class="value">RELEASE: BLOCKED</text>
+<text x="538" y="379" class="value blocked">RELEASE: BLOCKED</text>
 <text x="36" y="454" class="label">Critical failures and unsafe recommendations block promotion.</text>
 <text x="36" y="486" class="small">Guards preventing a bad effect do not make an incorrect model decision successful.</text>
 <text x="36" y="517" class="small">Actual local inference; small synthetic suite, not production readiness or a population success rate.</text>
