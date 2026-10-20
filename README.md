@@ -14,6 +14,8 @@ The live experiment runs **Qwen2.5-1.5B-Instruct locally through llama.cpp**, wi
 
 The separate deterministic suite proves the release machinery: a faulty candidate is blocked; an equivalent candidate passes offline, shadow and limited canary checks, is activated locally, and is rolled back after an injected runtime regression. **That successful lifecycle uses handwritten fixtures, not claimed live-model promotion.**
 
+For a seller-facing application of source-grounded proposals, review and controlled CRM delivery, see [Customer Signal & Activation](https://github.com/rlbsem/customer-signal-activation#from-account-evidence-to-an-owned-action).
+
 ```mermaid
 %%{init: {"theme":"base","themeVariables":{"background":"#10101D","primaryColor":"#2A2A3D","primaryTextColor":"#F0F0FF","primaryBorderColor":"#7C7CAF","lineColor":"#B8B8FF","textColor":"#F0F0FF","secondaryColor":"#181825","tertiaryColor":"#2E2E45","fontFamily":"IBM Plex Sans, Arial, sans-serif","fontSize":"15px","edgeLabelBackground":"#10101D"}}}%%
 flowchart TB
