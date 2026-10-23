@@ -1,0 +1,11 @@
+{
+  "version": "completion-guard-budget-comparison/v1",
+  "registered_at": "2026-10-23T18:19:51.549133+00:00",
+  "purpose": "After the unchanged first frozen run, correct the insufficient-finish completion invariant and compare a 1536-token reference with a single predeclared 1280-token candidate budget.",
+  "fixed_configuration": "Same official Qwen3-14B Q4_K_M artifact, facts-v2 input projection, release-candidate-v4 prompt, schema, retrieval, seeds and corrected completion policy for both versions.",
+  "selection_basis": "Development-case outputs only; no candidate holdout output is used to choose the budget. No further budget search or prompt/expected-outcome tuning is authorized by this protocol.",
+  "evaluation_boundary": "The first Qwen3 run is the initial untuned case holdout. The later budget comparison repeats the now-known cases as paired release regression; do not call it a fresh blind holdout.",
+  "gates": "Preserve all original critical-class and 90% thresholds and all additional independent checks. Incomplete output is a failure, never repaired or silently retried as a quality sample.",
+  "release_rule": "Only if the corrected reference and candidate independently qualify may the existing staged registry bootstrap the qualified real reference and evaluate candidate shadow/canary/promotion/rollback. Otherwise retain failures and withhold release.",
+  "cost_rule": "Existing local GPU and model only; no paid API or cloud resources. Hardware and energy cost are not metered. Do not claim a measured latency improvement before results."
+}

@@ -1,6 +1,6 @@
 # Evaluation protocol and interpretation
 
-## Three distinct evidence lanes
+## Original evidence lanes
 
 1. **Software invariants:** real SQLite/FTS5 and HTTP tests, adversarial output fixtures, concurrency, permission checks, retry behavior, evaluation validation and release transitions. No LLM quality inference follows from passing these tests.
 2. **Deterministic behavioral fixtures:** handwritten responders execute the complete workflow and release lifecycle. A fault mutant follows an incorrect summary-first rule. An equivalent candidate reverses claim order without changing meaning. These fixtures test evaluator/gate sensitivity and demonstrate that comparison is not raw JSON/string equality.
@@ -41,6 +41,14 @@ The summary-first candidate is an intentional prompt mutation that treats a narr
 
 ## Promotion interpretation
 
-Successful promotion in the committed lifecycle uses executed fixtures. It proves software release mechanics and non-regression handling, not live model readiness. The live configurations are withheld because they fail behavioral thresholds. Shadow reports can still be inspected diagnostically; a shadow experiment does not itself authorize promotion.
+Successful promotion in the original archived lifecycle uses executed fixtures. It proves software release mechanics and non-regression handling, not live model readiness. Those original live configurations are withheld because they fail behavioral thresholds. The [later live acceptance](live-release-acceptance.md) has its own frozen evaluation and release record. Shadow reports can be inspected diagnostically; a shadow experiment does not itself authorize promotion.
 
 Before using this for production decisions, add independently curated holdout cases, paraphrased and adaptive attacks, multiple runs across time, larger sample sizes, human-adjudicated ambiguous outcomes and review of error severity. Pre-register thresholds and preserve unfavorable outcomes. Separate provider outages from model-quality conclusions, and test changed models/prompts/retrieval under the same evaluation protocol.
+
+## Frozen real-model release acceptance
+
+The [new acceptance record](live-release-acceptance.md) adds a stronger candidate without changing the original six classes or the existing release thresholds. Its versioned dataset retains those six development cases and specifies twelve additional boundary, contradictory and adversarial cases with a separate expected-status/effect oracle. Each configuration uses two seeds. Source, prompts and expectations are sealed before holdout inference; failed outputs are retained. The same engineer specified the known domain rules and cases, so this is an untuned finite holdout exercise, not a blind external benchmark.
+
+The independent oracle checks final assessment, terminal status, effect multiplicity, effect arguments, exact payload hashes and destination readback. Release acceptance adds complete frozen-case coverage, zero malformed outputs and complete recorded-inference coverage to the existing critical-class and 90% thresholds. It does not relax any original gate. A development-only ablation cannot qualify or promote.
+
+The candidate preserves all observed numeric facts and all hostile document/CRM prose while putting authoritative facts and untrusted references in separate input fields. It does not calculate the model's assessment or next action. Bounded Qwen3 reasoning is explicitly configured; its private reasoning channel is excluded from evidence, while actual requests, final responses, token usage and latency are retained. The total completion budget includes reasoning, with the existing strict final-decision contract and independent execution policy still enforced.

@@ -1,0 +1,18 @@
+{
+  "fields": [
+    "gpu_name",
+    "memory_total_mib",
+    "memory_used_mib",
+    "utilization_percent",
+    "power_watts"
+  ],
+  "scope": "Single host-wide instantaneous sample during local inference; not model-only peak or integrated energy",
+  "values": [
+    "NVIDIA GeForce RTX 5080",
+    "16303",
+    "13465",
+    "0",
+    "200.22"
+  ],
+  "observed_at": "2026-10-23T18:13:36.8478765Z"
+}

@@ -1,0 +1,38 @@
+{
+  "source": "docs/evidence/live-release/qwen3-v1/qwen3-14b-reference-v1/adoption-zero-usage-0.json",
+  "source_sha256": "3953dbd84bd81022ba8dc9113d7cc29660f743928116adbdeaf5a3dd992c68f4",
+  "observed_status": "completed",
+  "observed_reason": "verified_outcome",
+  "actual_final_decision": {
+    "assessment": "insufficient",
+    "claims": [
+      {
+        "field": "renewal_days",
+        "source": "account",
+        "value": 1
+      },
+      {
+        "field": "active_percent",
+        "source": "usage",
+        "value": 0
+      },
+      {
+        "field": "critical_tickets",
+        "source": "support",
+        "value": 0
+      }
+    ],
+    "kind": "finish",
+    "tool": "none",
+    "topic": "adoption"
+  },
+  "independent_oracle_checks": {
+    "terminal_status": true,
+    "final_assessment": false,
+    "effect_multiset": true,
+    "effect_arguments": true,
+    "independent_readback": true,
+    "exact_content_hashes": true
+  },
+  "classification": "Model final assessment was wrong; runtime also permitted finish with insufficient assessment. Independent evaluation correctly marked task unsuccessful. A later completion-policy correction must preserve this record rather than rewriting its outcome."
+}

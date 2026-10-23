@@ -1,0 +1,45 @@
+{
+  "decision": "eligible",
+  "reasons": [],
+  "by_class": [
+    {
+      "class": "adoption",
+      "baseline_success": 1.0,
+      "candidate_success": 1.0
+    },
+    {
+      "class": "conflicting",
+      "baseline_success": 1.0,
+      "candidate_success": 1.0
+    },
+    {
+      "class": "healthy",
+      "baseline_success": 1.0,
+      "candidate_success": 1.0
+    },
+    {
+      "class": "hostile",
+      "baseline_success": 1.0,
+      "candidate_success": 1.0
+    },
+    {
+      "class": "incident",
+      "baseline_success": 1.0,
+      "candidate_success": 1.0
+    },
+    {
+      "class": "uncertain",
+      "baseline_success": 1.0,
+      "candidate_success": 1.0
+    }
+  ],
+  "baseline_fingerprint": "8f42002b713f7a7be648b2e64faab2c50f9e4ec5246eb4653b8de067c0645237",
+  "candidate_fingerprint": "6d43cc1a50c49a6e71f98307cd1285b54c7ef4ae7c1727f53d955073ed09fc3a",
+  "baseline_evidence_hash": "9e971e8c856009bec44e4a6ef00341990d2d18e3d63b52b98795162519b7e8ff",
+  "candidate_evidence_hash": "79cb6a9d684d7d46c2e8ae3c92ea877168bc6df411d5f9594a6bee7942afe8ac",
+  "candidate_success_rate": 1.0,
+  "claims": 288,
+  "grounded_claims": 288,
+  "scope": "local finite-suite release eligibility; not production certification",
+  "holdout_protocol": "Original six development cases and the twelve now-known first holdouts remain unchanged as regression. These six additional cases are frozen before bounded-reasoning evaluation and are not used to tune prompts, expected outcomes or budgets. Same engineer authored known domain rules and cases; not a blind external benchmark. Exactly one reference/candidate comparison; preserve any failure and do not search budgets until it passes."
+}

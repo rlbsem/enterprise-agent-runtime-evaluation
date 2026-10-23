@@ -1,0 +1,12 @@
+{
+  "model_repo": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+  "revision": "91cad51170dc346986eccefdc2dd33a9da36ead9",
+  "file": "qwen2.5-1.5b-instruct-q4_k_m.gguf",
+  "sha256": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e",
+  "bytes": 1117320736,
+  "runtime_release": "b10809",
+  "runtime_asset": "llama-b10809-bin-win-cpu-x64.zip",
+  "runtime_sha256": "9df3158ed228a641a4b127942d7f459f24c9e13f04682659d05c00c80099b6b5",
+  "source": "Official Qwen model repository and ggml-org llama.cpp GitHub release",
+  "included_in_archive": false
+}

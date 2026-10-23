@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools==80.9.0", "wheel==0.45.1"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "enterprise-agent-runtime-evaluation"
+version = "1.0.0"
+requires-python = ">=3.12"
+description = "Bounded enterprise agents with grounded tool use and inspectable evaluation"
+dependencies = ["fastapi==0.115.12", "uvicorn==0.34.2", "httpx==0.28.1", "pydantic==2.13.5"]
+[tool.setuptools.package-data]
+gtm_agent = ["*.sql", "*.json", "*.txt"]
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+[tool.ruff]
+line-length = 110
+target-version = "py312"

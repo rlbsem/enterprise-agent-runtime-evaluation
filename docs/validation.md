@@ -8,7 +8,7 @@ The live comparison contains two samples for each of six classes per configurati
 
 Successful release promotion/rollback is a separate, explicitly deterministic experiment. It executes real code, SQLite state changes, HTTP tools and routed runtime calls using handwritten model fixtures. It does not claim that a live model was promoted. The shadow/canary reports measure zero external effects and show actual decisions and frozen context. They are not cloud deployment or real customer traffic.
 
-GitHub Actions is configured for Windows and Linux but has not been pushed or observed running for this project. No hosted CI pass is claimed. No Docker engine, cloud infrastructure, SaaS system, paid AI provider, production customer, scale benchmark or security certification is claimed.
+GitHub Actions has executed the deterministic regression and release workflow on Windows and Ubuntu; see the [published baseline run](https://github.com/rlbsem/enterprise-agent-runtime-evaluation/actions/runs/39900919228). Hosted CI does not perform fresh model inference. The [live release acceptance](live-release-acceptance.md) records the separate local-model boundary. No container, cloud deployment, SaaS integration, paid inference provider, production customer, scale benchmark or security certification is claimed.
 
 ## Material corrections from skeptical review
 
