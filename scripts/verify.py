@@ -55,6 +55,10 @@ def main():
     if before != manifest():
         raise RuntimeError("Source changed during validation")
     suite = ET.parse(output / "tests.xml").getroot().find("testsuite")
+    suite.attrib.pop("hostname", None)
+    sanitized = ET.Element("testsuites")
+    sanitized.append(suite)
+    ET.ElementTree(sanitized).write(output / "tests.xml", encoding="utf8", xml_declaration=True)
     result = {"executed_at": datetime.now(UTC).isoformat(), "python": platform.python_version(),
               "sqlite": sqlite3.sqlite_version, "platform": platform.platform(), "tests": int(suite.attrib["tests"]),
               "failures": int(suite.attrib["failures"]), "errors": int(suite.attrib["errors"]),

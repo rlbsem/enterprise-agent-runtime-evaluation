@@ -35,6 +35,11 @@ def attest(model_file, runtime, official_file, alias):
         raise ValueError("official_model_artifact_mismatch")
     dependencies = {p.name: hashlib.file_digest(p.open("rb"), "sha256").hexdigest()
                     for p in sorted(runtime.parent.glob("*.dll"))}
+    try:
+        gpu_inventory = subprocess.check_output(["nvidia-smi", "--query-gpu=name,memory.total",
+                         "--format=csv,noheader,nounits"], text=True, timeout=5).strip().splitlines()
+    except (FileNotFoundError, subprocess.CalledProcessError, subprocess.TimeoutExpired):
+        gpu_inventory = ["not_observed"]
     return {"repository": official["repository"], "revision": official["revision"],
             "file": model_file.name, "sha256": fingerprint, "bytes": model_file.stat().st_size,
             "alias": alias, "runtime_version": subprocess.check_output([str(runtime), "--version"],
@@ -43,7 +48,7 @@ def attest(model_file, runtime, official_file, alias):
             "runtime_dependencies_sha256": dependencies,
             "transport": "private authenticated loopback llama.cpp; reasoning channel excluded",
             "hardware": {"os": platform.system(), "architecture": platform.machine(),
-                         "logical_cpus": os.cpu_count(), "gpu": "NVIDIA GeForce RTX 5080, 16 GB, Vulkan"},
+                         "logical_cpus": os.cpu_count(), "available_gpu_name_and_memory_mib": gpu_inventory},
             "financial_cost": {"paid_api_usd": 0, "hardware_energy_cost": "not_metered"}}
 
 
@@ -154,7 +159,10 @@ def main():
     p.add_argument("--workspace", type=Path, required=True)
     p.add_argument("--development-only", action="store_true", help="Ablation only; cannot qualify or promote")
     p.add_argument("--no-thinking", action="store_true")
+    p.add_argument("--bounded-reasoning", action="store_true", help="Frozen v2: 1024/768 reasoning caps, same 1536 total budget")
     args = p.parse_args()
+    if args.bounded_reasoning and args.no_thinking:
+        p.error("bounded reasoning cannot be combined with no-thinking")
     parsed = urlsplit(args.url)
     if parsed.scheme != "http" or parsed.hostname not in ("127.0.0.1", "localhost", "::1") or parsed.username or parsed.query:
         raise ValueError("loopback_model_endpoint_required")
@@ -177,10 +185,16 @@ def main():
     args.workspace.mkdir(parents=True)
     frozen = source_hashes(ROOT)
     prefix = args.alias
-    configs = [configuration(prefix + "-reference-v1", artifact, compact=False, thinking=not args.no_thinking),
-               configuration(prefix + "-authority-facts-v4", artifact, compact=True, thinking=not args.no_thinking)]
+    if args.bounded_reasoning:
+        configs = [configuration(prefix + "-reasoning1024-reference", artifact, compact=True,
+                                 reasoning_cap=1024, dataset_version="v2"),
+                   configuration(prefix + "-reasoning768-candidate", artifact, compact=True,
+                                 reasoning_cap=768, dataset_version="v2")]
+    else:
+        configs = [configuration(prefix + "-reference-v1", artifact, compact=False, thinking=not args.no_thinking),
+                   configuration(prefix + "-authority-facts-v4", artifact, compact=True, thinking=not args.no_thinking)]
     seal = {"sealed_at": datetime.now(UTC).isoformat(), "source_sha256": frozen,
-            "configurations": configs, "dataset": cases(),
+            "configurations": configs, "dataset": cases(configs[0].get("dataset_version", "v1")),
             "holdout_rule": "Do not inspect holdout responses or revise prompts/expected outcomes between seal and final gate."}
     save(args.output / "seal.json", seal)
     results = []
@@ -188,7 +202,7 @@ def main():
         name = config["version"]
         with enterprise_server(args.workspace / name) as server:
             result = evaluate(config, server, args.workspace / name, args.output / name, args.url,
-                              splits=("development",) if args.development_only else ("development", "holdout"))
+                              splits=("development",) if args.development_only else None)
         results.append(result)
         if source_hashes(ROOT) != frozen:
             raise RuntimeError("frozen_source_changed")

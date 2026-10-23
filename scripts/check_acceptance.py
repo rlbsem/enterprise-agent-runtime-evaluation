@@ -40,8 +40,20 @@ def check():
         folder = execution.parent
         seal = load(folder / "seal.json")
         assert digest(seal) == load(execution)["seal_hash"]
-        assert seal["source_sha256"] == source_hashes(ROOT), "executed_source_changed"
-        case_map = {c["id"]: c for split in ("development", "holdout") for c in seal["dataset"][split]}
+        if seal["source_sha256"] != source_hashes(ROOT):
+            snapshot = folder / "source-snapshot"
+            pinned = load(folder / "source-commit.json")["commit"]
+            for name, expected in seal["source_sha256"].items():
+                assert hashlib.sha256((snapshot / name).read_bytes()).hexdigest() == expected, "executed_source_snapshot_changed"
+                if (ROOT / ".git").exists():
+                    blob = subprocess.check_output(["git", "show", pinned + ":" + name], cwd=ROOT)
+                    assert hashlib.sha256(blob).hexdigest() == expected, "executed_source_commit_mismatch"
+        archive = folder / "artifact-manifest.json"
+        if archive.exists():
+            for name, expected in load(archive)["files"].items():
+                assert hashlib.sha256((folder / name).read_bytes()).hexdigest() == expected, "archived_trial_changed"
+        case_map = {c["id"]: c for split in ("development", "regression", "holdout") if split in seal["dataset"]
+                    for c in seal["dataset"][split]}
         for config in seal["configurations"]:
             assert digest({k: v for k, v in config.items() if k != "fingerprint"}) == config["fingerprint"]
             summary = load(folder / config["version"] / "summary.json")

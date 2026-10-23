@@ -112,7 +112,10 @@ class Engine:
             return
         if d.kind == "finish":
             completed = {r["effect"]["tool"] for r in json.loads(run["receipts"])}
-            required = {"create_task"} if d.assessment == "risk" else set()
+            critical = context["support"]["data"]["critical_tickets"]
+            needs_follow_up = critical > 0 or (context["usage"]["data"]["active_percent"] < 40
+                                               and context["account"]["data"]["renewal_days"] <= 60)
+            required = {"create_task"} if needs_follow_up else set()
             if context["support"]["data"]["critical_tickets"] > 0:
                 required.add("request_escalation")
             if not required <= completed:

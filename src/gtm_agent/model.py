@@ -16,12 +16,13 @@ class LocalModel:
     mode = "live_local_llm"
 
     def __init__(self, url, seed=42, prompt=None, *, compact=False, model_id="local", journal=None,
-                 no_thinking=False, thinking_tokens=None):
+                 no_thinking=False, thinking_tokens=None, reasoning_cap=None):
         self.url, self.seed = url.rstrip("/"), seed
         self.prompt = prompt or SYSTEM
         self.compact, self.model_id, self.journal = compact, model_id, journal
         self.no_thinking = no_thinking
         self.thinking_tokens = thinking_tokens
+        self.reasoning_cap = reasoning_cap
 
     def decide(self, observation):
         # Scenario labels and internal account identifiers never enter the model input.
@@ -70,6 +71,12 @@ class LocalModel:
                 raise ValueError("invalid_thinking_budget")
             payload["chat_template_kwargs"] = {"enable_thinking": True}
             payload["max_tokens"] = self.thinking_tokens
+        if self.reasoning_cap is not None:
+            if (type(self.reasoning_cap) is not int or self.thinking_tokens is None
+                    or not 128 <= self.reasoning_cap <= self.thinking_tokens - 128):
+                raise ValueError("invalid_reasoning_cap_or_answer_reserve")
+            # b10809 server-common.cpp passes this exact field to the reasoning sampler.
+            payload["reasoning_budget_tokens"] = self.reasoning_cap
         if len(canonical(payload)) > 20000:
             raise ValueError("context_budget")
         started = time.monotonic()

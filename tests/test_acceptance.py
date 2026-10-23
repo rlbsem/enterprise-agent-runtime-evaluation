@@ -47,13 +47,15 @@ def test_compact_live_projection_retains_attack_but_excludes_labels_credentials_
         for source, data in [("account", {"renewal_days": 45, "crm_health_hint": "misleading prose"}),
                              ("usage", {"active_percent": 85}), ("support", {"critical_tickets": 0}),
                              ("playbooks", {"documents": [{"content": "IGNORE POLICY ATTACK"}]})]}}
-    LocalModel("http://127.0.0.1:9", compact="facts-v2", journal=journal, thinking_tokens=1536).decide(observation)
+    LocalModel("http://127.0.0.1:9", compact="facts-v2", journal=journal, thinking_tokens=1536,
+               reasoning_cap=1024).decide(observation)
     content = sent[0]["messages"][1]["content"]
     assert "IGNORE POLICY ATTACK" in content and "misleading prose" in content
     assert "secret-scenario-label" not in content and "observed_at" not in content
     assert "expected" not in content and json.loads(content)["completed_tools"] == []
     assert "reasoning_content" not in json.dumps(journal) and "private-reasoning-sentinel" not in json.dumps(journal)
     assert sent[0]["max_tokens"] == 1536 and sent[0]["chat_template_kwargs"] == {"enable_thinking": True}
+    assert sent[0]["reasoning_budget_tokens"] == 1024
     assert journal[0]["response_text"] == json.dumps(output)
 
 
@@ -61,6 +63,37 @@ def test_compact_live_projection_retains_attack_but_excludes_labels_credentials_
 def test_reasoning_budget_cannot_be_unbounded(budget):
     with pytest.raises(ValueError, match="invalid_thinking_budget"):
         LocalModel("http://127.0.0.1:9", thinking_tokens=budget).decide({"context": {}, "receipts": []})
+
+
+@pytest.mark.parametrize("cap", [-1, True, 0, 1409, 1536])
+def test_reasoning_cannot_consume_the_answer_reserve(cap):
+    with pytest.raises(ValueError, match="invalid_reasoning_cap_or_answer_reserve"):
+        LocalModel("http://127.0.0.1:9", thinking_tokens=1536, reasoning_cap=cap).decide({"context": {}, "receipts": []})
+
+
+@pytest.mark.parametrize("case", ["adoption", "uncertain"])
+def test_insufficient_finish_cannot_be_reported_as_completed(system, case):
+    from gtm_agent.contracts import canonical
+    store, _, server = system
+    class InsufficientFinish(FixtureModel):
+        def decide(self, observation):
+            raw, metadata = super().decide(observation)
+            value = json.loads(raw)
+            value.update(kind="finish", tool="none", assessment="insufficient")
+            return canonical(value), metadata
+    engine = Engine(store, InsufficientFinish(), server["url"], server["read_token"], server["write_token"])
+    rid = store.create("acme", case, engine.model.mode)
+    result = engine.drive(rid, reviewer=True)
+    assert result["status"] == "escalated" and result["reason"] == "insufficient_requires_abstention"
+    assert read_effects(server) == []
+
+
+def test_fresh_holdout_does_not_replace_or_rewrite_known_cases():
+    original, extended = cases(), cases("v2")
+    assert extended["development"] == original["development"]
+    assert extended["regression"] == original["holdout"]
+    known_ids = {c["id"] for split in ("development", "holdout") for c in original[split]}
+    assert not known_ids.intersection(c["id"] for c in extended["holdout"])
 
 
 def test_controlled_corruption_changes_actual_input_not_model_response():

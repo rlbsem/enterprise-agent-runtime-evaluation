@@ -18,8 +18,15 @@ FOLDER = Path(__file__).parent
 CASES_PATH = FOLDER / "acceptance-cases.json"
 
 
-def cases():
-    return json.loads(CASES_PATH.read_text(encoding="utf8"))
+def cases(version="v1"):
+    original = json.loads(CASES_PATH.read_text(encoding="utf8"))
+    if version == "v1":
+        return original
+    if version != "v2":
+        raise ValueError("unknown_acceptance_dataset")
+    extra = json.loads((FOLDER / "acceptance-cases-v2.json").read_text(encoding="utf8"))
+    return {"version": extra["version"], "protocol": extra["protocol"],
+            "development": original["development"], "regression": original["holdout"], "holdout": extra["holdout"]}
 
 
 def source_hashes(root):
@@ -29,15 +36,15 @@ def source_hashes(root):
     return {p.relative_to(root).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(paths)}
 
 
-def configuration(version, artifact, *, compact, thinking=True):
+def configuration(version, artifact, *, compact, thinking=True, reasoning_cap=None, dataset_version="v1"):
     prompt = (FOLDER / "release-candidate-v4.txt").read_text(encoding="utf8") if compact else SYSTEM
     bundle = {"version": version, "model_artifact": artifact, "prompt": prompt,
               "prompt_hash": digest(prompt), "projection": "facts-v2" if compact else "original-v1",
               "decoding": {"temperature": 0.2, "schema_constrained": True, "thinking": thinking,
-                           "total_completion_budget": 1536 if thinking else 320},
+                           "total_completion_budget": 1536 if thinking else 320, "reasoning_cap": reasoning_cap},
               "tools_hash": digest(Decision.model_json_schema()), "policy_hash": POLICY_HASH,
               "retrieval": {"engine": "SQLite FTS5", "limit": 2, "approved_only": True, "tenant_filter": True},
-              "dataset_sha256": hashlib.sha256(CASES_PATH.read_bytes()).hexdigest(),
+              "dataset_version": dataset_version, "dataset_sha256": digest(cases(dataset_version)),
               "code_hashes": source_hashes(FOLDER.parents[1])}
     return {**bundle, "fingerprint": digest(bundle)}
 
@@ -46,7 +53,8 @@ def model(config, url, seed, journal):
     responder = BoundModel(url, seed, config["prompt"], compact="facts-v2" if config["projection"] == "facts-v2" else False,
                            model_id=config["model_artifact"]["alias"], journal=journal,
                            no_thinking=not config["decoding"]["thinking"],
-                           thinking_tokens=1536 if config["decoding"]["thinking"] else None)
+                           thinking_tokens=config["decoding"]["total_completion_budget"] if config["decoding"]["thinking"] else None,
+                           reasoning_cap=config["decoding"].get("reasoning_cap"))
     responder.fingerprint = config["fingerprint"]
     return responder
 
@@ -114,12 +122,14 @@ def independent_score(case, run, trace, effects):
     return result, observed
 
 
-def evaluate(config, server, workspace, output, url, splits=("development", "holdout"), repeats=2):
+def evaluate(config, server, workspace, output, url, splits=None, repeats=2):
     output.mkdir(parents=True, exist_ok=False)
     store = Store(workspace / "runs.sqlite")
     rows, requests, counters = [], [], Counter()
+    dataset = cases(config.get("dataset_version", "v1"))
+    splits = splits or tuple(k for k in ("development", "regression", "holdout") if k in dataset)
     for split in splits:
-        for case in cases()[split]:
+        for case in dataset[split]:
             prepare_case(server, case)
             for repeat in range(repeats):
                 journal = []
@@ -142,7 +152,7 @@ def evaluate(config, server, workspace, output, url, splits=("development", "hol
                             "inference": journal, "configuration_fingerprint": config["fingerprint"]}
                 (output / f"{case['id']}-{repeat}.json").write_text(json.dumps(artifact, indent=2) + "\n", encoding="utf8", newline="\n")
                 print(config["version"], case["id"], repeat, result["task_success"], run["reason"], flush=True)
-    summary = {"mode": "live", "configuration": config, "case_spec_hash": digest(cases()), "results": rows,
+    summary = {"mode": "live", "configuration": config, "case_spec_hash": digest(dataset), "results": rows,
                "requests": len(requests), "task_successes": sum(r["task_success"] for r in rows),
                "usage": {k: sum((r.get("usage") or {}).get(k, 0) for r in requests)
                          for k in ("prompt_tokens", "completion_tokens", "total_tokens")},
@@ -162,9 +172,11 @@ def gate(baseline, candidate):
         if row["inference_requests"] != row["structured_decisions"]:
             reasons.append("inference_contract_failure:" + row["case_id"])
     for side in (baseline, candidate):
-        expected = {(c["id"], i) for split in ("development", "holdout") for c in cases()[split] for i in range(2)}
+        dataset = cases(side["configuration"].get("dataset_version", "v1"))
+        expected = {(c["id"], i) for split in ("development", "regression", "holdout") if split in dataset
+                    for c in dataset[split] for i in range(2)}
         counts = Counter(r["case_id"] for r in side["results"])
         if set(counts) != {k for k, _ in expected} or any(v != 2 for v in counts.values()):
             reasons.append("full_frozen_case_coverage_required")
     return {**result, "decision": "blocked" if reasons else "eligible", "reasons": sorted(set(reasons)),
-            "holdout_protocol": cases()["protocol"]}
+            "holdout_protocol": cases(candidate["configuration"].get("dataset_version", "v1"))["protocol"]}
