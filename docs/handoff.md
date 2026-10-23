@@ -1,4 +1,4 @@
-# Finished project handoff
+# Engineering evaluation and release evidence
 
 ## Result and evidence
 
@@ -40,12 +40,10 @@ The strongest observability artifacts are individual run traces, which link obje
 
 Red-team corrections addressed scenario-label leakage, incidental clocks/nonces influencing inference, contradictory output fields, unsafe recommendations being mistaken for success, duplicate/missing evaluation samples, type coercion, caller-supplied shadow pass flags, shadow resuming effects, and rollback that could otherwise change only a label. The final validation also uses isolated scratch/cache directories. [Validation](validation.md) links the failure matrix and records remaining risks.
 
-Unexecuted work includes hosted CI, Linux runtime validation, cloud deployment, real SaaS integrations, distributed rollout, load testing, host-loss recovery and enterprise identity. The six visible cases, two seeds, one small local model and one blatant poisoned supplement do not establish general model quality or broad injection resistance. Numeric grounding does not establish arbitrary semantic entailment. A trusted filesystem/process owner can alter local evidence and registry state.
+Hosted CI has completed the deterministic runtime and release-regression workflows on Windows and Ubuntu ([successful run](https://github.com/rlbsem/enterprise-agent-runtime-evaluation/actions/runs/35055431823)). Those hosted jobs do not execute local-model inference. Cloud deployment, real SaaS integrations, distributed rollout, load testing, host-loss recovery and enterprise identity remain outside the demonstrated scope. The six visible cases, two seeds, one small local model and one blatant poisoned supplement do not establish general model quality or broad injection resistance. Numeric grounding does not establish arbitrary semantic entailment. A trusted filesystem/process owner can alter local evidence and registry state.
 
-## Exact next steps before publishing
+## Reproduce and extend
 
-1. Extract the finished archive into a new folder and read the live failures, release lifecycle, license and limitations.
-2. Create a Python 3.12 virtual environment; install `requirements.lock`; install the project with `python -m pip install --no-deps --no-build-isolation -e .`; run `python scripts/verify.py`.
-3. If changing model, prompt, tools, retrieval or runtime, rerun both live configurations and shadow comparison using the exact [operations commands](operations.md). Preserve the unfavorable results and disclose any further tuning.
-4. Review the source and generated evidence, initialize normal Git history, and publish to the intended new repository yourself. No remote repository was created or pushed by this build.
-5. Observe both supplied GitHub Actions jobs. Resolve platform failures before adding any passing-CI claim. Treat production rollout as separate work requiring broader evaluation and operational controls.
+Use Python 3.12, install `requirements.lock`, install the package with `python -m pip install --no-deps --no-build-isolation -e .`, then run `python scripts/verify.py`. See the [operations guide](operations.md) for optional model setup and exact live-evaluation commands.
+
+Changes to the model, prompt, tools, retrieval or runtime require fresh inference and paired comparison under versioned evidence. Preserve failed cases rather than retroactively modifying recorded results. The repository's [hosted CI](https://github.com/rlbsem/enterprise-agent-runtime-evaluation/actions/runs/35055431823) verifies the fixture-based regression workflow separately from the recorded local model execution.
