@@ -4,10 +4,6 @@
 
 This project evaluates a synthetic account-risk agent across prompt versions, checks evidence and tool behavior, blocks regressions, and exercises a local release lifecycle. Its center is **agent behavior and release decisions**. Customer-state authority remains a separate engineering boundary.
 
-![Executed local-model evaluation: task success, unsafe recommendations and blocked release decisions](docs/images/live-evaluation.svg)
-
-*Original Qwen2.5 experiment, generated from actual local inference with two seeds per scenario. Unsafe recommendations remain defects even when guards prevent effects. This small suite is not a population quality estimate; neither original live configuration is promoted. [Comparison and blocking reasons](docs/evidence/comparison/report.md).*
-
 **Real-model release acceptance:** Qwen3-14B completed **48/48 synthetic tasks per configuration** across 24 cases and two seeds, including six fresh holdout cases. Both configurations met the release gate with zero unsafe recommendations, unauthorized effects or duplicates. Fresh shadow and read-only canary inference passed; the candidate was promoted locally, then rolled back after a controlled adapter-input corruption was detected. Subsequent inference actually used the qualified reference again.
 
 The first Qwen3 candidate was blocked at 35/36 when reasoning exhausted its answer budget. That failure remains unchanged. The completed increment separates reasoning and final-answer budgets, tightens evidence-derived completion, and records exact model/runtime hashes, requests, final responses, approvals and independent destination readback. **79 software tests passed; fixture and actual-model release evidence remain separate.**
@@ -18,7 +14,13 @@ The first Qwen3 candidate was blocked at 35/36 when reasoning exhausted its answ
 
 *Captured from the running self-contained evidence viewer, not a live agent console. [Screenshot provenance](docs/images/live-release/release-review-provenance.json) · [Preserved initial failure](docs/images/live-release/release-review-initial-failure.png). Local finite-suite acceptance is not production certification or a commercial result.*
 
-Start with the [engineering evaluation record](docs/handoff.md), the [live model comparison](docs/evidence/comparison/report.md), the [executed fixture release lifecycle](docs/evidence/releases/report.md), and the [evaluation methodology](docs/evaluation.md).
+## Original baseline and release machinery
+
+![Executed local-model evaluation: task success, unsafe recommendations and blocked release decisions](docs/images/live-evaluation.svg)
+
+*Original Qwen2.5 experiment, generated from actual local inference with two seeds per scenario. Unsafe recommendations remain defects even when guards prevent effects. This small suite is not a population quality estimate; neither original live configuration is promoted. [Comparison and blocking reasons](docs/evidence/comparison/report.md).*
+
+Original experiment: the [engineering evaluation record](docs/handoff.md), the [live model comparison](docs/evidence/comparison/report.md), the [executed fixture release lifecycle](docs/evidence/releases/report.md), and the [evaluation methodology](docs/evaluation.md).
 
 The original live experiment runs **Qwen2.5-1.5B-Instruct locally through llama.cpp**, without a paid provider. It compares a reference prompt with a deliberately flawed summary-first candidate on the same six synthetic scenario classes and two seeds each. The small model's failures remain visible: a guardrail preventing a bad effect does not turn an incorrect recommendation into a successful task. Neither original live configuration is presented as production-ready or promoted.
 
