@@ -25,10 +25,16 @@ def manifest():
 
 
 def main():
+    import argparse
     import os
     import time
     start = time.monotonic()
-    output = ROOT / "docs/evidence"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", type=Path, default=Path("work/verification-evidence"))
+    args = parser.parse_args()
+    output = args.output.resolve()
+    if output == (ROOT / "docs/evidence").resolve() or (ROOT / "docs/evidence").resolve() in output.parents:
+        raise ValueError("historical_evidence_is_read_only; use a new work directory")
     output.mkdir(parents=True, exist_ok=True)
     workspace = ROOT / "work/verification" / uuid4().hex
     workspace.mkdir(parents=True)
@@ -49,6 +55,10 @@ def main():
     if before != manifest():
         raise RuntimeError("Source changed during validation")
     suite = ET.parse(output / "tests.xml").getroot().find("testsuite")
+    suite.attrib.pop("hostname", None)
+    sanitized = ET.Element("testsuites")
+    sanitized.append(suite)
+    ET.ElementTree(sanitized).write(output / "tests.xml", encoding="utf8", xml_declaration=True)
     result = {"executed_at": datetime.now(UTC).isoformat(), "python": platform.python_version(),
               "sqlite": sqlite3.sqlite_version, "platform": platform.platform(), "tests": int(suite.attrib["tests"]),
               "failures": int(suite.attrib["failures"]), "errors": int(suite.attrib["errors"]),

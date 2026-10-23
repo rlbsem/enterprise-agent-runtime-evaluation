@@ -66,7 +66,7 @@ class Receipt(Closed):
     effect: Effect
 
 
-POLICY = {"version": "renewal-agent/1", "max_model_calls": 9, "max_seconds": 600,
+POLICY = {"version": "renewal-agent/2", "max_model_calls": 9, "max_seconds": 600,
           "context_ttl": 120, "approval_ttl": 120, "max_effect_attempts": 3,
           "max_read_attempts": 3, "max_output_tokens": 320}
 POLICY_HASH = digest(POLICY)
@@ -104,6 +104,8 @@ def authorize(decision, context, now):
     if decision.assessment == "risk" and not risk:
         return "deny", "evidence_contradiction"
     if decision.kind == "finish":
+        if decision.assessment == "insufficient":
+            return "deny", "insufficient_requires_abstention"
         if {v.field for v in decision.claims} != {"renewal_days", "active_percent", "critical_tickets"}:
             return "deny", "missing_final_evidence"
         return ("allow", "grounded_finish") if decision.tool == "none" else ("deny", "invalid_finish")

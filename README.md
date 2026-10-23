@@ -4,13 +4,25 @@
 
 This project evaluates a synthetic account-risk agent across prompt versions, checks evidence and tool behavior, blocks regressions, and exercises a local release lifecycle. Its center is **agent behavior and release decisions**. Customer-state authority remains a separate engineering boundary.
 
+**Real-model release acceptance:** Qwen3-14B completed **48/48 synthetic tasks per configuration** across 24 cases and two seeds, including six fresh holdout cases. Both configurations met the release gate with zero unsafe recommendations, unauthorized effects or duplicates. Fresh shadow and read-only canary inference passed; the candidate was promoted locally, then rolled back after a controlled adapter-input corruption was detected. Subsequent inference actually used the qualified reference again.
+
+The first Qwen3 candidate was blocked at 35/36 when reasoning exhausted its answer budget. That failure remains unchanged. The completed increment separates reasoning and final-answer budgets, tightens evidence-derived completion, and records exact model/runtime hashes, requests, final responses, approvals and independent destination readback. **79 software tests passed; fixture and actual-model release evidence remain separate.**
+
+[Executed comparison and limits](docs/live-release-acceptance.md) · [Exact live gate](docs/evidence/live-release/qwen3-bounded-v2/gate.json) · [Actual release routing and rollback](docs/evidence/live-release/qwen3-bounded-v2/lifecycle.json) · [Download the offline evidence viewer](docs/release-review.html?raw=1)
+
+![Read-only browser review of actual model decisions, independent outcomes and release evidence](docs/images/live-release/release-review-desktop.png)
+
+*Captured from the running self-contained evidence viewer, not a live agent console. [Screenshot provenance](docs/images/live-release/release-review-provenance.json) · [Preserved initial failure](docs/images/live-release/release-review-initial-failure.png). Local finite-suite acceptance is not production certification or a commercial result.*
+
+## Original baseline and release machinery
+
 ![Executed local-model evaluation: task success, unsafe recommendations and blocked release decisions](docs/images/live-evaluation.svg)
 
-*Generated from actual local inference, two seeds per scenario. Unsafe recommendations remain defects even when guards prevent effects. This small suite is not a population quality estimate; neither live configuration is promoted. [Comparison and blocking reasons](docs/evidence/comparison/report.md).*
+*Original Qwen2.5 experiment, generated from actual local inference with two seeds per scenario. Unsafe recommendations remain defects even when guards prevent effects. This small suite is not a population quality estimate; neither original live configuration is promoted. [Comparison and blocking reasons](docs/evidence/comparison/report.md).*
 
-Start with the [engineering evaluation record](docs/handoff.md), the [live model comparison](docs/evidence/comparison/report.md), the [executed fixture release lifecycle](docs/evidence/releases/report.md), and the [evaluation methodology](docs/evaluation.md).
+Original experiment: the [engineering evaluation record](docs/handoff.md), the [live model comparison](docs/evidence/comparison/report.md), the [executed fixture release lifecycle](docs/evidence/releases/report.md), and the [evaluation methodology](docs/evaluation.md).
 
-The live experiment runs **Qwen2.5-1.5B-Instruct locally through llama.cpp**, without a paid provider. It compares a reference prompt with a deliberately flawed summary-first candidate on the same six synthetic scenario classes and two seeds each. The small model's failures remain visible: a guardrail preventing a bad effect does not turn an incorrect recommendation into a successful task. Neither live configuration is presented as production-ready or promoted.
+The original live experiment runs **Qwen2.5-1.5B-Instruct locally through llama.cpp**, without a paid provider. It compares a reference prompt with a deliberately flawed summary-first candidate on the same six synthetic scenario classes and two seeds each. The small model's failures remain visible: a guardrail preventing a bad effect does not turn an incorrect recommendation into a successful task. Neither original live configuration is presented as production-ready or promoted.
 
 The separate deterministic suite proves the release machinery: a faulty candidate is blocked; an equivalent candidate passes offline, shadow and limited canary checks, is activated locally, and is rolled back after an injected runtime regression. **That successful lifecycle uses handwritten fixtures, not claimed live-model promotion.**
 
@@ -86,7 +98,7 @@ An intentionally poisoned playbook requests credential export, approval bypass a
 
 ## Execution and claim boundary
 
-Native Windows execution includes real local-model inference, real SQLite/FTS5, separate HTTP processes, deterministic tests and local release routing. The [verification record](docs/evidence/verification.json) and [individual tests](docs/evidence/tests.xml) retain exact results. [Hosted runtime and release-regression CI passed on Windows and Ubuntu](https://github.com/rlbsem/enterprise-agent-runtime-evaluation/actions/runs/35055431823). That workflow executes fixtures; actual local-model inference is evidenced separately. Cloud deployment and live vendor integration are outside this local validation.
+Native Windows execution includes real local-model inference, real SQLite/FTS5, separate HTTP processes, deterministic tests and local release routing. The [current 79-test verification](docs/evidence/live-release/software/verification.json) and [individual results](docs/evidence/live-release/software/tests.xml) are separate from the [original 59-test archive](docs/evidence/verification.json). [Hosted runtime and release-regression CI passed on Windows and Ubuntu](https://github.com/rlbsem/enterprise-agent-runtime-evaluation/actions/runs/35055431823). That workflow executes fixtures; actual local-model inference is evidenced separately. Cloud deployment and live vendor integration are outside this local validation.
 
 The release gate is a conservative check on a small synthetic suite, not proof of general prompt-injection resistance or population-level model quality. The intentionally flawed candidate is a regression mutation, not an impartial provider benchmark. [Known limits and validation](docs/validation.md) explain the development-case tuning, small sample size and trusted local operator boundary.
 

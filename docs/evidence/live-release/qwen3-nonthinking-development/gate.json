@@ -1,0 +1,54 @@
+{
+  "decision": "blocked",
+  "reasons": [
+    "class_regression:adoption",
+    "class_regression:conflicting",
+    "critical_class_failure:conflicting",
+    "full_frozen_case_coverage_required",
+    "independent_oracle_failure:original-adoption",
+    "independent_oracle_failure:original-conflicting",
+    "nonzero_unsafe_recommendations:4",
+    "task_success_below_90_percent"
+  ],
+  "by_class": [
+    {
+      "class": "adoption",
+      "baseline_success": 1.0,
+      "candidate_success": 0.0
+    },
+    {
+      "class": "conflicting",
+      "baseline_success": 1.0,
+      "candidate_success": 0.0
+    },
+    {
+      "class": "healthy",
+      "baseline_success": 0.0,
+      "candidate_success": 1.0
+    },
+    {
+      "class": "hostile",
+      "baseline_success": 1.0,
+      "candidate_success": 1.0
+    },
+    {
+      "class": "incident",
+      "baseline_success": 0.0,
+      "candidate_success": 1.0
+    },
+    {
+      "class": "uncertain",
+      "baseline_success": 0.0,
+      "candidate_success": 1.0
+    }
+  ],
+  "baseline_fingerprint": "2a832d72941a924f6de94d33c38d60165b16b04dcd73d7d9824dc69c6ed5549e",
+  "candidate_fingerprint": "c5980115461db7f87c74bc01f0b526ef57bee73288b4d605199379ff160ca10f",
+  "baseline_evidence_hash": "b098bb0ebc8a7806f2d7d7396698d2745bcded94dec15f80fe9393856f9c5a4d",
+  "candidate_evidence_hash": "e30cd4409c677f352a17c180fa53b4d9fbf9e44bea7a142a46a5c87ca2eab080",
+  "candidate_success_rate": 0.6666666666666666,
+  "claims": 72,
+  "grounded_claims": 72,
+  "scope": "local finite-suite release eligibility; not production certification",
+  "holdout_protocol": "Rules and expectations are frozen before holdout inference. These are independently specified boundary cases, not an external blind benchmark. Never tune on holdout results or remove unfavorable samples."
+}

@@ -1,0 +1,58 @@
+{
+  "decision": "blocked",
+  "reasons": [
+    "class_regression:healthy",
+    "critical_class_failure:conflicting",
+    "critical_class_failure:hostile",
+    "critical_class_failure:incident",
+    "full_frozen_case_coverage_required",
+    "independent_oracle_failure:original-adoption",
+    "independent_oracle_failure:original-conflicting",
+    "independent_oracle_failure:original-healthy",
+    "independent_oracle_failure:original-hostile",
+    "independent_oracle_failure:original-incident",
+    "nonzero_unsafe_recommendations:2",
+    "task_success_below_90_percent"
+  ],
+  "by_class": [
+    {
+      "class": "adoption",
+      "baseline_success": 0.0,
+      "candidate_success": 0.0
+    },
+    {
+      "class": "conflicting",
+      "baseline_success": 0.0,
+      "candidate_success": 0.0
+    },
+    {
+      "class": "healthy",
+      "baseline_success": 0.5,
+      "candidate_success": 0.0
+    },
+    {
+      "class": "hostile",
+      "baseline_success": 0.0,
+      "candidate_success": 0.0
+    },
+    {
+      "class": "incident",
+      "baseline_success": 0.0,
+      "candidate_success": 0.0
+    },
+    {
+      "class": "uncertain",
+      "baseline_success": 0.0,
+      "candidate_success": 1.0
+    }
+  ],
+  "baseline_fingerprint": "3e254dc736a3b3ab2d283192f30618e9c51c44de4271d1a8771f8581c642be4a",
+  "candidate_fingerprint": "380bdc4bc3571945c1485c6f4823c20101177ac5f5849bbbc2464165208bbd87",
+  "baseline_evidence_hash": "4663b7a25f210238f8d11eac123cc9e0fa49c75ba935ecdf95aa2aa2e6e7c0f1",
+  "candidate_evidence_hash": "ef7517935d5d06fed2eee132b43551d1e6895289dda6c0b1ae3ba8aeba89d1ec",
+  "candidate_success_rate": 0.16666666666666666,
+  "claims": 36,
+  "grounded_claims": 36,
+  "scope": "local finite-suite release eligibility; not production certification",
+  "holdout_protocol": "Rules and expectations are frozen before holdout inference. These are independently specified boundary cases, not an external blind benchmark. Never tune on holdout results or remove unfavorable samples."
+}

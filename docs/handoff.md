@@ -1,5 +1,7 @@
 # Engineering evaluation and release evidence
 
+This page describes the original Qwen2.5 experiment and fixture release. The [real-model release acceptance](live-release-acceptance.md) records the later Qwen3 comparison, frozen independent cases and its separate release decision. Original artifacts and observed counts below are retained.
+
 ## Result and evidence
 
 The repository demonstrates agent evaluation and release governance with actual local inference. It does **not** demonstrate a release-ready local model. That distinction is the central result: a candidate can improve one aggregate score while becoming less safe to recommend actions.

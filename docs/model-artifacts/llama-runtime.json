@@ -1,0 +1,11 @@
+{
+  "official_release": "https://github.com/ggml-org/llama.cpp/releases/tag/b10809",
+  "asset": {
+    "browser_download_url": "https://github.com/ggml-org/llama.cpp/releases/download/b10809/llama-b10809-bin-win-vulkan-x64.zip",
+    "digest": "sha256:97e50b3ef0cdd2cb4d5afd446a9006b3496bee6c0d0ba7083d32f36075771870",
+    "name": "llama-b10809-bin-win-vulkan-x64.zip"
+  },
+  "local_archive_sha256": "97e50b3ef0cdd2cb4d5afd446a9006b3496bee6c0d0ba7083d32f36075771870",
+  "official_digest_match": true,
+  "scope": "Archive and runtime files excluded from repository; per-executable/DLL hashes are in each execution seal."
+}

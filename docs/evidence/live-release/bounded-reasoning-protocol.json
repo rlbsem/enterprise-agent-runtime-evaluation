@@ -1,0 +1,23 @@
+{
+  "version": "bounded-reasoning/v2",
+  "registered_at": "2026-10-23T18:29:14.749141+00:00",
+  "supersedes": "budget-protocol.json was not executed: its assumed qualified initial reference was unavailable, and source review identified the separate reasoning sampler cap as the appropriate fix. Preserve that original proposal unchanged.",
+  "runtime_contract": {
+    "source": "https://github.com/ggml-org/llama.cpp/blob/b10809/tools/server/server-common.cpp",
+    "source_sha256": "bbece72259e2aaab94ac0f31ba404b4a3f2868848cce1fe19a255009a60c6eb1",
+    "field": "reasoning_budget_tokens",
+    "verified_build": "b10809-5266f24da"
+  },
+  "fixed_total_completion_budget": 1536,
+  "reference_reasoning_cap": 1024,
+  "candidate_reasoning_cap": 768,
+  "reserved_answer_capacity": {
+    "reference": 512,
+    "candidate": 768
+  },
+  "configuration": "Same official Qwen3-14B Q4_K_M, facts-v2 projection, v4 prompt, schema, retrieval and corrected renewal-agent/2 policy. No prompt tuning, expected-outcome changes or additional cap search.",
+  "dataset": "Six original development cases plus twelve now-known first holdouts as regression, plus six fresh frozen holdouts. Two seeds per case: 48 tasks per configuration. First run remains a failed immutable record.",
+  "acceptance": "Original thresholds remain. This lane additionally requires every independent oracle check and inference contract to pass. No promotion after any mandatory failure.",
+  "staging": "Only a qualified real reference may bootstrap the local registry. Then run candidate shadow, bounded read-only canary, active routing and controlled input-corruption rollback using actual inference.",
+  "stopping_rule": "One comparison only at these predeclared caps; preserve failures and withhold release if it fails. No paid inference or cloud resources."
+}

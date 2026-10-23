@@ -20,6 +20,8 @@ The synthetic service atomically checks the source revision vector and inserts a
 
 There are at most nine model requests, a ten-minute run lifetime, bounded model output, repeated-decision detection, bounded read/effect retries and context/approval expiry. A blocked or exhausted run can retain a pending uncertain action; it must not be interpreted as proof that the remote system never committed. The runtime is deliberately small and single-host; a file owner can alter the database or code.
 
+The later [live release acceptance](live-release-acceptance.md) keeps these boundaries. It separates authenticated numeric facts from untrusted narrative context and bounds internal reasoning independently of the final-answer allowance. Policy `renewal-agent/2` also requires abstention for an insufficient assessment; `finish` cannot use that assessment to bypass evidence-derived completion checks. These changes do not give the model new tools, source authority or credentials.
+
 ## Version and release identity
 
 `configuration()` fingerprints the prompt, model artifact/revision, runtime release, decoding settings, tool schema, policy, retrieval settings and Python implementation. The corpus is defined in the versioned synthetic-service source and appears in per-run provenance. Evidence records the dataset plus expected-outcome hash, version fingerprint, prompt hash, structured provider outputs and observed token usage. An ID cannot silently be re-registered with different configuration.

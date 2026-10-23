@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS runs (
+ id TEXT PRIMARY KEY, tenant TEXT NOT NULL, account TEXT NOT NULL, objective TEXT NOT NULL,
+ model_mode TEXT NOT NULL, policy TEXT NOT NULL, created REAL NOT NULL,
+ status TEXT NOT NULL DEFAULT 'running', reason TEXT,
+ calls INTEGER NOT NULL DEFAULT 0, context TEXT NOT NULL DEFAULT '{}', decision TEXT,
+ history TEXT NOT NULL DEFAULT '[]', receipts TEXT NOT NULL DEFAULT '[]',
+ lease TEXT, lease_until REAL, retry_at REAL NOT NULL DEFAULT 0,
+ read_attempts INTEGER NOT NULL DEFAULT 0
+);
+CREATE TABLE IF NOT EXISTS actions (
+ key TEXT PRIMARY KEY, run_id TEXT NOT NULL REFERENCES runs(id), payload TEXT NOT NULL, hash TEXT NOT NULL,
+ status TEXT NOT NULL, attempts INTEGER NOT NULL DEFAULT 0, approved_by TEXT, approved_until REAL,
+ approval_hash TEXT, receipt TEXT
+);
+CREATE TABLE IF NOT EXISTS trace (
+ seq INTEGER PRIMARY KEY AUTOINCREMENT, run_id TEXT NOT NULL REFERENCES runs(id), at REAL NOT NULL,
+ kind TEXT NOT NULL, detail TEXT NOT NULL
+);
+CREATE TRIGGER IF NOT EXISTS trace_no_update BEFORE UPDATE ON trace BEGIN SELECT RAISE(ABORT,'immutable trace'); END;
+CREATE TRIGGER IF NOT EXISTS trace_no_delete BEFORE DELETE ON trace BEGIN SELECT RAISE(ABORT,'immutable trace'); END;
