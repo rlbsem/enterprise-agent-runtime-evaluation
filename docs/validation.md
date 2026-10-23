@@ -60,11 +60,8 @@ One blatant poisoned supplement and a compact set of structured attacks do not e
 
 The release thresholds are conservative finite-suite rules, not statistically calibrated production risk bounds. Repeated model outputs can vary across seeds, hardware and runtime versions. Canary routing is a stable synthetic recommendation cohort, not measured production distribution. The operator still decides whether observed evidence justifies rollback; the fixture incident is explicitly injected.
 
-## Benchmark inspection
+## Related control-plane engineering
 
-Before architecture selection, both public repositories were downloaded at these commits and their implementation/evidence boundaries inspected:
+[Enterprise MarTech / AI Control Plane](https://github.com/rlbsem/enterprise-martech-ai-control-plane/tree/3b7cef9cf87db0a681d4e2fb284b5736f84e6bc5) demonstrates source authority, approval, leased execution, HTTP uncertainty recovery, negative tests and documented execution boundaries.
 
-- [Game telemetry analytics engineering](https://github.com/rlbsem/game-telemetry-analytics-engineering/tree/205491319fd25c0ad107e25e0e25d2003cb2a5d6): explicit analytical grains, executable dbt/Python, negative admission/replay tests, generated proof and separated deployment references.
-- [Enterprise MarTech / AI Control Plane](https://github.com/rlbsem/enterprise-martech-ai-control-plane/tree/3b7cef9cf87db0a681d4e2fb284b5736f84e6bc5): source authority, approval, leased execution, real HTTP uncertainty recovery, negative tests and honest local/CI boundaries.
-
-Their evidentiary discipline is reused. Their primary architectures are not copied: this project's main deliverables are model-behavior comparison, release gating, scoped shadow/canary execution and observable version routing.
+This repository separately focuses on live-model behavior, evaluation quality, release gating, scoped shadow/canary execution and observable version routing. Its implementation and evidence stand on their own.
