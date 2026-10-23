@@ -56,10 +56,6 @@ Each run JSON contains the objective, evaluation and ordered trace. Context entr
 
 SQLite database files under `work/` are for local inspection and are excluded from publication. A trusted operator can use `Registry` to register immutable version/evidence bodies and perform guarded transitions. This is an executable local library/CLI demonstration, not a deployed multi-user release-management API. Protect the files and process environment if adapting it.
 
-## Before publishing
+## Reproduction and release scope
 
-1. Read the live failures and factual boundaries; preserve them in the public repository.
-2. Reproduce `scripts/verify.py` from the extracted artifact. Re-run local inference if changing prompts, model, tools, retrieval or runtime code.
-3. Review the complete source and license files, then publish to the intended new GitHub repository yourself.
-4. Observe both GitHub Actions jobs and resolve any platform failures before adding a passing-CI claim.
-5. If proposing production use, expand the evaluation dataset and identity/deployment controls described in validation; the local fixture promotion is not production approval.
+Reproduce the shipped verification with `python scripts/verify.py`. If model, prompt, tool, retrieval, or runtime changes are proposed, rerun live inference and paired comparisons with new versioned output; preserve unfavorable and failed results. Check the [published Windows and Ubuntu CI run](https://github.com/rlbsem/enterprise-agent-runtime-evaluation/actions/runs/35055431823) separately from the archived local-model experiment. Production use would require the larger evaluation and identity, deployment, and monitoring controls described in [validation](validation.md).
