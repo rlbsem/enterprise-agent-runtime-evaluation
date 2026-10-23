@@ -8,7 +8,7 @@ This project evaluates a synthetic account-risk agent across prompt versions, ch
 
 *Generated from actual local inference, two seeds per scenario. Unsafe recommendations remain defects even when guards prevent effects. This small suite is not a population quality estimate; neither live configuration is promoted. [Comparison and blocking reasons](docs/evidence/comparison/report.md).*
 
-Start with the [finished project handoff](docs/handoff.md), the [live model comparison](docs/evidence/comparison/report.md), the [executed fixture release lifecycle](docs/evidence/releases/report.md), and the [evaluation methodology](docs/evaluation.md).
+Start with the [engineering evaluation record](docs/handoff.md), the [live model comparison](docs/evidence/comparison/report.md), the [executed fixture release lifecycle](docs/evidence/releases/report.md), and the [evaluation methodology](docs/evaluation.md).
 
 The live experiment runs **Qwen2.5-1.5B-Instruct locally through llama.cpp**, without a paid provider. It compares a reference prompt with a deliberately flawed summary-first candidate on the same six synthetic scenario classes and two seeds each. The small model's failures remain visible: a guardrail preventing a bad effect does not turn an incorrect recommendation into a successful task. Neither live configuration is presented as production-ready or promoted.
 
