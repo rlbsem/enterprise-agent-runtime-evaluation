@@ -25,10 +25,16 @@ def manifest():
 
 
 def main():
+    import argparse
     import os
     import time
     start = time.monotonic()
-    output = ROOT / "docs/evidence"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", type=Path, default=Path("work/verification-evidence"))
+    args = parser.parse_args()
+    output = args.output.resolve()
+    if output == (ROOT / "docs/evidence").resolve() or (ROOT / "docs/evidence").resolve() in output.parents:
+        raise ValueError("historical_evidence_is_read_only; use a new work directory")
     output.mkdir(parents=True, exist_ok=True)
     workspace = ROOT / "work/verification" / uuid4().hex
     workspace.mkdir(parents=True)

@@ -1,6 +1,7 @@
 """Actual local-model HTTP adapter and prominently separated synthetic test responders."""
 import json
 import os
+import time
 from pathlib import Path
 
 import httpx
@@ -14,9 +15,13 @@ PROMPT_HASH = digest(SYSTEM)
 class LocalModel:
     mode = "live_local_llm"
 
-    def __init__(self, url, seed=42, prompt=None):
+    def __init__(self, url, seed=42, prompt=None, *, compact=False, model_id="local", journal=None,
+                 no_thinking=False, thinking_tokens=None):
         self.url, self.seed = url.rstrip("/"), seed
         self.prompt = prompt or SYSTEM
+        self.compact, self.model_id, self.journal = compact, model_id, journal
+        self.no_thinking = no_thinking
+        self.thinking_tokens = thinking_tokens
 
     def decide(self, observation):
         # Scenario labels and internal account identifiers never enter the model input.
@@ -28,6 +33,20 @@ class LocalModel:
         completed = {r["effect"]["tool"] for r in observation["receipts"]}
         observation.pop("receipts")
         observation["completed_tools"] = sorted(completed)
+        if self.compact == "facts-v2":
+            context = observation.pop("context")
+            observation["authoritative_facts"] = {
+                "support.critical_tickets": context["support"]["data"]["critical_tickets"],
+                "usage.active_percent": context["usage"]["data"]["active_percent"],
+                "account.renewal_days": context["account"]["data"]["renewal_days"]}
+            observation["untrusted_reference_data"] = {
+                "crm_health_hint": context["account"]["data"].get("crm_health_hint"),
+                "documents": context["playbooks"]["data"]["documents"]}
+        elif self.compact:
+            # Preserve all observed facts and untrusted prose; remove transport wrappers only.
+            observation["context"] = {
+                name: {"revision": value["revision"], "data": value["data"]}
+                for name, value in observation["context"].items()}
         # A single operation avoids contradictory model fields such as kind=call/tool=none.
         schema["properties"].pop("kind")
         schema["properties"].pop("tool")
@@ -39,18 +58,33 @@ class LocalModel:
             "fact": {"type": "string", "enum": ["account.renewal_days", "usage.active_percent", "support.critical_tickets"]},
             "value": {"type": "integer", "minimum": 0, "maximum": 10000}},
             "required": ["fact", "value"], "additionalProperties": False}
-        payload = {"model": "local", "messages": [{"role": "system", "content": self.prompt},
+        payload = {"model": self.model_id, "messages": [{"role": "system", "content": self.prompt},
                     {"role": "user", "content": canonical(observation)}], "temperature": 0.2,
                    "seed": self.seed, "max_tokens": POLICY["max_output_tokens"],
                    "response_format": {"type": "json_schema", "json_schema": {
                        "name": "next_decision", "strict": True, "schema": schema}}}
+        if self.no_thinking:
+            payload["chat_template_kwargs"] = {"enable_thinking": False}
+        if self.thinking_tokens is not None:
+            if type(self.thinking_tokens) is not int or not 320 <= self.thinking_tokens <= 1536:
+                raise ValueError("invalid_thinking_budget")
+            payload["chat_template_kwargs"] = {"enable_thinking": True}
+            payload["max_tokens"] = self.thinking_tokens
         if len(canonical(payload)) > 20000:
             raise ValueError("context_budget")
+        started = time.monotonic()
         with httpx.Client(timeout=120, trust_env=False,
                           headers={"Authorization": "Bearer " + os.environ.get("MODEL_API_KEY", "local-model-only")}) as c:
             r = c.post(self.url + "/v1/chat/completions", json=payload)
             r.raise_for_status()
             body = r.json()
+        if self.journal is not None:
+            # Opt-in acceptance journal: only synthetic inputs, no headers or reasoning channel.
+            self.journal.append({"request": payload, "input_hash": digest(payload),
+                                 "response_text": body["choices"][0]["message"].get("content"),
+                                 "finish_reason": body["choices"][0].get("finish_reason"),
+                                 "model": body.get("model"), "usage": body.get("usage"),
+                                 "seconds": round(time.monotonic() - started, 6)})
         if body["choices"][0]["finish_reason"] != "stop":
             raise ValueError("incomplete_model_output")
         decision = strict_json(body["choices"][0]["message"]["content"])

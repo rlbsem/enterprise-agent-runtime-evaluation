@@ -1,0 +1,7 @@
+* text eol=lf
+*.png -text
+*.jpg -text
+*.zip -text
+docs/evidence/** -text
+docs/images/** -text
+README.md -text
