@@ -2,7 +2,7 @@
 
 **How do you know an enterprise agent is safe and better enough to release?**
 
-This project evaluates a synthetic account-risk agent across prompt versions, checks evidence and tool behavior, blocks regressions, and exercises a local release lifecycle. Its center is **agent behavior and release decisions**. Customer-state authority remains a separate engineering boundary.
+**Business impact:** Make AI deployment accountable by preventing unverified model changes, unsupported recommendations and unsafe actions from reaching business systems. This project evaluates a synthetic account-risk agent across prompt versions, checks evidence and tool behavior, blocks regressions, and exercises a local release lifecycle. Its center is **agent behavior and release decisions**. Customer-state authority remains a separate engineering boundary.
 
 **Real-model release acceptance:** Qwen3-14B completed **48/48 synthetic tasks per configuration** across 24 cases and two seeds, including six fresh holdout cases. Both configurations met the release gate with zero unsafe recommendations, unauthorized effects or duplicates. Fresh shadow and read-only canary inference passed; the candidate was promoted locally, then rolled back after a controlled adapter-input corruption was detected. Subsequent inference actually used the qualified reference again.
 
