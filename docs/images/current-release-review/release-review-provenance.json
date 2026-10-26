@@ -1,0 +1,62 @@
+{
+  "captured_at": "2026-10-26T12:31:22.886154+00:00",
+  "source": "docs/release-review.html",
+  "html_sha256": "d6fed0f77e763bdd72d692155396753c748f30acc26c18854d295990361fc989",
+  "capture_source_sha256": "c32076e2586f8b6d5b21dfe7aa3397d8303804904c0ee878565011babeb11271",
+  "axe_version": "4.10.3",
+  "axe_sha256": "880970c081707360e64f34cea25ff91892f5bc95675b0776925b9709dd8a68bb",
+  "checks": {
+    "desktop": {
+      "configuration_math": true,
+      "failure_filter": true,
+      "keyboard": true,
+      "record_export": true,
+      "viewport": [
+        1440,
+        1000
+      ],
+      "no_overflow": true
+    },
+    "mobile": {
+      "configuration_math": true,
+      "failure_filter": true,
+      "keyboard": true,
+      "record_export": true,
+      "viewport": [
+        390,
+        844
+      ],
+      "no_overflow": true
+    }
+  },
+  "accessibility": {
+    "desktop": {
+      "violations": [],
+      "incomplete_rule_ids": [
+        "aria-prohibited-attr"
+      ],
+      "scope": "automated finite-page check, not accessibility certification"
+    },
+    "initial_failure": {
+      "violations": [],
+      "incomplete_rule_ids": [
+        "aria-prohibited-attr"
+      ]
+    },
+    "mobile": {
+      "violations": [],
+      "incomplete_rule_ids": [
+        "aria-prohibited-attr"
+      ],
+      "scope": "automated finite-page check, not accessibility certification"
+    }
+  },
+  "page_errors": [],
+  "external_network_requests": [],
+  "image_sha256": {
+    "release-review-desktop.png": "4a62b5a7b33f8c6ae8902ed40613a4546913fdbdbd62767978d2b644433b5a4b",
+    "release-review-initial-failure.png": "0633539183d1859ab4c579cd9059d7e2fa6031fa176df386c3a3de0163b70ad3",
+    "release-review-mobile.png": "a1096d657f8a5f1dbc42984bd806e298c99829aa0b307771d9e11d0c98ac92d2"
+  },
+  "execution_boundary": "actual Chromium rendering of recorded evidence; no fresh model or destination execution"
+}

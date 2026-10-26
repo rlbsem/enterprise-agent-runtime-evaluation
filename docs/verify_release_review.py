@@ -53,8 +53,11 @@ def verify():
         receipts = [t["detail"]["receipt"] for t in lifecycle["promoted_run"]["trace"] if t["kind"] == "verified_receipt"]
         assert sorted(receipts, key=lambda r: r["key"]) == lifecycle["independent_effects"]
         assert len(receipts) == 1 and receipts[0]["effect"]["tool"] == "create_task"
-    screenshot_proof = DOCS / "images/live-release/release-review-provenance.json"
+    screenshot_proof = DOCS / "images/current-release-review/release-review-provenance.json"
     screenshots = 0
+    historical_proof = DOCS / "images/live-release/release-review-provenance.json"
+    for name, expected in load(historical_proof)["image_sha256"].items():
+        assert hashlib.sha256((historical_proof.parent / name).read_bytes()).hexdigest() == expected
     if screenshot_proof.exists():
         proof = load(screenshot_proof)
         assert proof["html_sha256"] == manifest["html_sha256"]

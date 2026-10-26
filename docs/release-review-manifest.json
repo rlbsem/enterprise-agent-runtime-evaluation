@@ -265,7 +265,7 @@
     "docs/evidence/live-release/qwen25-development/qwen25-1.5b-authority-facts-v4/original-uncertain-1.json": "b1b0d1fabef3d8da9ce86f1b6b4eb1692584bd09fba775bf7b653e6325431a6b"
   },
   "generator_sha256": "70c21dd68a83f7c15bc534dce04fdabc2dc2d7b5fee363fac2680d528de23abb",
-  "template_sha256": "8b81c5884f023abf569dec67621e7eb68e6b1bd8fc941ce6643f78d7fce9f96c",
-  "html_sha256": "8ad9e385cdc43919ec5f74bb28bf64779e8e1ac763d942828a838a8b5f3fb9e3",
+  "template_sha256": "88df70ea1ef0271669c3ec8b98549eef73f10c81b84caed7220c1815030dae78",
+  "html_sha256": "d6fed0f77e763bdd72d692155396753c748f30acc26c18854d295990361fc989",
   "scope": "Self-contained projection of recorded local-model evidence; no inference, network or write authority"
 }
