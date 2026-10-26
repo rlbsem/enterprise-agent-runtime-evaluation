@@ -24,6 +24,7 @@ def capture(output, axe_file):
             page.on("request", lambda r: external.append(r.url) if r.url.startswith(("http:", "https:")) else None)
             page.goto((DOCS / "release-review.html").as_uri())
             page.wait_for_selector(".task")
+            assert page.locator("h1").inner_text() == "Can this agent act correctly, and can we release it safely?"
             configurations = page.evaluate("JSON.parse(document.getElementById('evidence').textContent).configurations")
             default_id = page.locator("#configuration").input_value()
             for config in configurations:
@@ -94,7 +95,7 @@ def capture(output, axe_file):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output", type=Path, default=DOCS / "images/live-release")
+    parser.add_argument("--output", type=Path, default=DOCS / "images/current-release-review")
     parser.add_argument("--axe-file", type=Path, required=True)
     args = parser.parse_args()
     capture(args.output, args.axe_file)

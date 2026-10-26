@@ -81,4 +81,4 @@ Optional screenshot reproduction uses [Playwright 1.55.0](browser-requirements.t
 python docs/capture_release_review.py --axe-file work/axe.min.js
 ```
 
-Desktop/mobile capture checks configuration arithmetic, failure filtering, keyboard navigation, exact JSON export, overflow, page errors and automated WCAG rules. Zero automated violations is not an accessibility certification. Capturing the viewer performs no model inference.
+Desktop/mobile capture checks configuration arithmetic, failure filtering, keyboard navigation, exact JSON export, overflow, page errors and automated WCAG rules. Zero automated violations is not an accessibility certification. Capturing the viewer performs no model inference. Current captures are written to `docs/images/current-release-review/`; the original `docs/images/live-release/` captures and provenance are preserved unchanged. Current captures are written to `docs/images/current-release-review/`; the original `docs/images/live-release/` captures and provenance are preserved unchanged.

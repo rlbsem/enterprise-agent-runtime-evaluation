@@ -10,9 +10,9 @@ The first Qwen3 candidate was blocked at 35/36 when reasoning exhausted its answ
 
 [Executed comparison and limits](docs/live-release-acceptance.md) · [Exact live gate](docs/evidence/live-release/qwen3-bounded-v2/gate.json) · [Actual release routing and rollback](docs/evidence/live-release/qwen3-bounded-v2/lifecycle.json) · [Download the offline evidence viewer](docs/release-review.html?raw=1)
 
-![Read-only browser review of actual model decisions, independent outcomes and release evidence](docs/images/live-release/release-review-desktop.png)
+![Read-only browser review of actual model decisions, independent outcomes and release evidence](docs/images/current-release-review/release-review-desktop.png)
 
-*Captured from the running self-contained evidence viewer, not a live agent console. [Screenshot provenance](docs/images/live-release/release-review-provenance.json) · [Preserved initial failure](docs/images/live-release/release-review-initial-failure.png). Local finite-suite acceptance is not production certification or a commercial result.*
+*Captured from the running self-contained evidence viewer, not a live agent console. [Current screenshot provenance](docs/images/current-release-review/release-review-provenance.json) · [Original capture](docs/images/live-release/release-review-provenance.json) · [Preserved initial failure](docs/images/live-release/release-review-initial-failure.png). Local finite-suite acceptance is not production certification or a commercial result.*
 
 ## Original baseline and release machinery
 
