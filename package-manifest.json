@@ -2,7 +2,7 @@
   ".gitattributes": "b43b57e573f71bdd1d44a3774094f2e8ba2047a6bf328bed8072373e6a25ef30",
   ".github/workflows/validate.yml": "8a828da8c445ce50955a02eeefc1377fe4b208a935748485b77cc1b809f8f0eb",
   ".gitignore": "c3627d1606231f6ea485b116a364e9f9c759ee3ae2932923af23cf28b6b7696e",
-  "LICENSE": "bfa35d897efdd7b0c543024c4d8a4d39feb8d9132f5432c1644f7f74443b4c13",
+  "LICENSE": "1819462f2e141f8a0f1371c5191ad9ceffe1455611b2d2359674485cb7c3a8c5",
   "README.md": "05f320419f7aacaf6fe0dad853432ab57fcf95f8a8c07465cb5a80ac5d1119d4",
   "docs/architecture.md": "5fb660e9cac3c8cadfeeea62a93a30fbd84796de8a949b0345470adc96ece429",
   "docs/browser-requirements.txt": "b52b8d63608db4d9c6926f0bded19680398b125233aca36e0e8a041948035744",
